@@ -34,7 +34,20 @@ public class GetProduct implements BugzillaMethod {
 	}
 	
 	public Product getProduct() {
-		return null;
+		Object products = hash.get("products");
+		if(products == null) { return null; }
+		
+		@SuppressWarnings("unchecked")//Cast to form specified by webservice
+		Map<Object, Object>[] arr = (Map<Object, Object>[])products;
+		if(arr.length == 0) { return null; }//Defend against empty results
+		
+		Map<Object, Object> prodMap = arr[0];
+		
+		Product product = new Product((Integer)prodMap.get("id"), (String)prodMap.get("name"));
+		String desc = (String)prodMap.get("description");
+		product.setDescription(desc);
+		
+		return product;
 	}
 	
 	@Override
