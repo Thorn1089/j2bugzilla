@@ -117,8 +117,11 @@ public class BugzillaConnector {
          * handle cookies for authentication
          */
         XmlRpcTransportFactory factory = new XmlRpcSunHttpTransportFactory(client) {
+        	
+        	XmlRpcTransport transport = new TransportWithCookies(client);
+        	
 			public XmlRpcTransport getTransport() {
-				return new TransportWithCookies(client);
+				return transport;
 			}
 		};
 		client.setTransportFactory(factory);
