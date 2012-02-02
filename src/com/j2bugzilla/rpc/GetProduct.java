@@ -25,10 +25,19 @@ public class GetProduct implements BugzillaMethod {
 	
 	private Map<Object, Object> hash = Collections.emptyMap();
 	
+	/**
+	 * Creates a new {@link GetProduct}, which can be used to retrieve the {@link Product} associated with the
+	 * specified ID number.
+	 * @param id A unique integer ID.
+	 */
 	public GetProduct(int id) {
 		params.put("ids", new Integer[] { id });
 	}
 	
+	/**
+	 * Returns the product found in the Bugzilla installation matching the provided name or ID.
+	 * @return A new {@link Product}, or null if there are no results to return.
+	 */
 	public Product getProduct() {
 		Object products = hash.get("products");
 		if(products == null) { return null; }
