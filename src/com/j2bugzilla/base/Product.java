@@ -13,6 +13,8 @@ public class Product {
 	
 	private final String name;
 	
+	private String description;
+	
 	/**
 	 * Creates a new {@link Product} object with the specified unique ID and name.
 	 * @param id An {@code integer} representing the unique product ID.
@@ -47,6 +49,22 @@ public class Product {
 	 */
 	public String getName() {
 		return name;
+	}
+	
+	/**
+	 * Sets the description of this {@link Product}.
+	 * @param description A {@code String} representing this product's description.
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	/**
+	 * Returns the description of this {@link Product}.
+	 * @return A {@code String} describing this product.
+	 */
+	public String getDescription() {
+		return description;
 	}
 	
 }
