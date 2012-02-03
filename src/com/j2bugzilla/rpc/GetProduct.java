@@ -61,7 +61,7 @@ public class GetProduct implements BugzillaMethod {
 
 	@Override
 	public Map<Object, Object> getParameterMap() {
-		return params;
+		return Collections.unmodifiableMap(params);
 	}
 
 	@Override

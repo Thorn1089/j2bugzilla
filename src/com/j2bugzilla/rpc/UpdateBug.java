@@ -1,5 +1,6 @@
 package com.j2bugzilla.rpc;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,7 +68,7 @@ public class UpdateBug implements BugzillaMethod {
 		params.put("summary", internals.get("summary"));
 		params.put("version", internals.get("version"));
 		
-		return params;
+		return Collections.unmodifiableMap(params);
 	}
 
 	/**
