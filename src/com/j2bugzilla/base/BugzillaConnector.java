@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -146,7 +147,8 @@ public class BugzillaConnector {
 		Object[] obj = {method.getParameterMap()};
 		try {
 			Object results = client.execute(method.getMethodName(), obj);
-			method.setResultMap((Map<Object,Object>)results);
+			Map<Object, Object> readOnlyResults = Collections.unmodifiableMap((Map<Object, Object>)results);
+			method.setResultMap(readOnlyResults);
 		} catch (XmlRpcException e) {
 			BugzillaException wrapperException = XmlExceptionHandler.handleFault(e);
 			throw wrapperException;
