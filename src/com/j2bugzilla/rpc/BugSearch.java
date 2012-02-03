@@ -189,21 +189,48 @@ public class BugSearch implements BugzillaMethod {
 		return METHOD_NAME;
 	}
 	
+	/**
+	 * The {@code SearchQuery} class encapsulates a query against the bug collection on a given
+	 * Bugzilla database. It consists of a limiter to apply and the value for that limiter. For
+	 * example, a valid {@code SearchQuery} might consist of the limiter 
+	 * {@link SearchLimiter#PRODUCT "Product"} and the query {@code "J2Bugzilla"}.
+	 * 
+	 * When a {@code SearchQuery} is applied within the {@link BugSearch} class, it is joined with the
+	 * other queries in a logical AND. That is, bugs will be returned that match all the criteria, not
+	 * any of them.
+	 * 
+	 * @author Tom
+	 *
+	 */
 	public class SearchQuery {
 		
 		private final SearchLimiter limiter;
 		
 		private final String query;
 		
+		/**
+		 * Creates a new {@link SearchQuery} to filter the bug database through.
+		 * @param limiter A {@link SearchLimiter} enum.
+		 * @param query A {@code String} to filter with. The whole string will be matched, or not at all --
+		 * Bugzilla does not perform substring matching.
+		 */
 		public SearchQuery(SearchLimiter limiter, String query) {
 			this.limiter = limiter;
 			this.query = query;
 		}
 		
+		/**
+		 * Returns the {@link SearchLimiter} to apply to this query.
+		 * @return A facet of a bug to search against.
+		 */
 		public SearchLimiter getLimiter() { 
 			return limiter; 
 		}
 		
+		/**
+		 * Returns the value of the specified query.
+		 * @return A {@code String} to query for within the specified limiter.
+		 */
 		public String getQuery() { 
 			return query; 
 		}
