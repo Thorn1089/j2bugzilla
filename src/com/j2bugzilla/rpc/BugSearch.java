@@ -98,7 +98,17 @@ public class BugSearch implements BugzillaMethod {
 		/**
 		 * The unique alias for a bug
 		 */
-		ALIAS("alias"); 
+		ALIAS("alias"),
+		
+		/**
+		 * The maximum number of bugs to return.
+		 */
+		LIMIT("limit"),
+		
+		/**
+		 * An offset into bugs returned by search.
+		 */
+		OFFSET("offset"); 
 		
 		private final String name;
 		/**
