@@ -118,6 +118,14 @@ public class BugSearch implements BugzillaMethod {
 		}
 	}
 	
+	public BugSearch(SearchQuery... queries) {
+		if(queries.length == 0) { throw new IllegalArgumentException("At least one search query is required"); }
+		
+		for(SearchQuery query : queries) {
+			params.put(query.getLimiter().getName(), query.getQuery());
+		}
+	}
+	
 	/**
 	 * Creates a new {@link BugSearch} object with the appropriate search limit
 	 * and query string. 
@@ -188,5 +196,25 @@ public class BugSearch implements BugzillaMethod {
 	@Override
 	public String getMethodName() {
 		return METHOD_NAME;
+	}
+	
+	public class SearchQuery {
+		
+		private final SearchLimiter limiter;
+		
+		private final String query;
+		
+		public SearchQuery(SearchLimiter limiter, String query) {
+			this.limiter = limiter;
+			this.query = query;
+		}
+		
+		public SearchLimiter getLimiter() { 
+			return limiter; 
+		}
+		
+		public String getQuery() { 
+			return query; 
+		}
 	}
 }
