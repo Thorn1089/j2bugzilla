@@ -1,6 +1,7 @@
 package com.j2bugzilla.rpc;
 
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +53,7 @@ public class GetBug implements BugzillaMethod {
 	 */
 	@Override
 	public Map<Object, Object> getParameterMap() {
-		return params;
+		return Collections.unmodifiableMap(params);
 	}
 	
 	/**
