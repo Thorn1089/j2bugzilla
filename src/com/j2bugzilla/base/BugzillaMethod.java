@@ -17,17 +17,18 @@ public interface BugzillaMethod {
 	 * to any returned data from the webservice
 	 * 
 	 * @param hash A {@link Map} of other <code>Objects</code> as returned by the Bugzilla
-	 * webservice from the request, whether it succeeds or returns a fault
+	 * webservice from the request, whether it succeeds or returns a fault. This {@code Map}
+	 * is considered immutable and cannot be written to, only read from.
 	 */
 	void setResultMap(Map<Object, Object> hash);
 	
 	/**
 	 * Allows the {@link BugzillaConnector} to access this {@link BugzillaMethod}'s
 	 * parameters in a form that can be passed to the Bugzilla webservice over
-	 * XML-RPC
+	 * XML-RPC.
 	 * 
 	 * @return A {@link Map} of <code>Objects</code> required as parameters for the Bugzilla
-	 * webservice method
+	 * webservice method. This {@code Map} is considered immutable and cannot be written to, only read from.
 	 */
 	Map<Object, Object> getParameterMap();
 	
