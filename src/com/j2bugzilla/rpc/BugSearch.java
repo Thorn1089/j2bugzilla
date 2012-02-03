@@ -127,25 +127,6 @@ public class BugSearch implements BugzillaMethod {
 	}
 	
 	/**
-	 * Creates a new {@link BugSearch} object with the appropriate search limit
-	 * and query string. 
-	 * @param limit What dimension to search {@link Bug Bugs} by in the Bugzilla installation
-	 * @param query What to match fields against
-	 */
-	public BugSearch(SearchLimiter limit, String query) {
-		params.put(limit.getName(), query);
-	}
-	
-	/**
-	 * Add an additional search limit to the {@link BugSearch}
-     * @param limit What dimension to search {@link Bug Bugs} by in the Bugzilla installation
-     * @param query What to match fields against
-	 */
-    public void addQueryParam(SearchLimiter limit, Object query) {
-        params.put(limit.getName(), query);
-    }
-	
-	/**
 	 * Returns the {@link Bug Bugs} found by the query as a <code>List</code>
 	 * @return a {@link List} of {@link Bug Bugs} that match the query and limit
 	 */
@@ -155,18 +136,18 @@ public class BugSearch implements BugzillaMethod {
 		 * The following is messy, but necessary due to how the returned XML document nests
 		 * Maps.
 		 */
-		
 		if(hash.containsKey("bugs")) {
-			
 			//Map<String, Object>[] bugList = (Map<String, Object>[])hash.get("bugs");
 			Object[] bugs = (Object[])hash.get("bugs");
-			if(bugs.length == 0) { 
-				return results; //early return if map is empty
-			}
 			
 			for(Object o : bugs) {
 				@SuppressWarnings("unchecked")
 				Map<String, Object> bugMap = (HashMap<String, Object>)o;
+				//Handle version property for older Bugzillas which did not include it in the public portion of the hash
+				if(!bugMap.containsKey("version")) {
+					Map<?, ?> internals = (Map<?, ?>) bugMap.get("internals");
+					bugMap.put("version", internals.get("version"));
+				}
 				Bug bug = new BugFactory().createBug(bugMap);
 				results.add(bug);
 			}
