@@ -1,6 +1,7 @@
 package com.j2bugzilla.rpc;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -147,7 +148,6 @@ public class BugSearch implements BugzillaMethod {
 		 * Maps.
 		 */
 		if(hash.containsKey("bugs")) {
-			//Map<String, Object>[] bugList = (Map<String, Object>[])hash.get("bugs");
 			Object[] bugs = (Object[])hash.get("bugs");
 			
 			for(Object o : bugs) {
@@ -178,7 +178,7 @@ public class BugSearch implements BugzillaMethod {
 	 */
 	@Override
 	public Map<Object, Object> getParameterMap() {
-		return params;
+		return Collections.unmodifiableMap(params);
 	}
 
 	/**
