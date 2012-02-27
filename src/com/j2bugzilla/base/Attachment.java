@@ -22,9 +22,9 @@ public abstract class Attachment {
 	
 	private String creator;
 	
-	private int id;
+	private int id = -1;
 	
-	private int bugId;
+	private int bugId = -1;
 	
 	private Date creationTime;
 	
@@ -55,6 +55,66 @@ public abstract class Attachment {
 	 */
 	public String getFileName() {
 		return name;
+	}
+	
+	/**
+	 * Returns the Internet Media Type or MIME type of the {@link Attachment}.
+	 * @return A {@code String} representing a valid MIME type
+	 * @see http://en.wikipedia.org/wiki/Internet_media_type
+	 */
+	public String getMIMEType() {
+		return mime;
+	}
+	
+	/**
+	 * Returns the description of this {@link Attachment}, as provided by the
+	 * initial poster.
+	 * @return A {@code String} describing the file.
+	 */
+	public String getSummary() {
+		return summary;
+	}
+	
+	/**
+	 * Returns the name of the user who submitted this {@link Attachment}.
+	 * @return The email address of the poster.
+	 */
+	public String getCreator() {
+		return creator;
+	}
+	
+	/**
+	 * Returns the unique ID of this attachment, or {@code -1} if the {@link Attachment} does not come
+	 * from a Bugzilla installation.
+	 * @return The integer ID of this file.
+	 */
+	public int getAttachmentID() {
+		return id;
+	}
+	
+	/**
+	 * Returns the unique ID of the bug this attachment is posted on, or {@code -1} if the {@link Attachment} does
+	 * not come from a Bugzilla installation.
+	 * @return The integer ID of the parent {@link Bug}.
+	 */
+	public int getBugID() {
+		return bugId;
+	}
+	
+	/**
+	 * Returns the date this {@link Attachment} was submitted to the installation.
+	 * @return The {@link Date} when this attachment was posted.
+	 */
+	public Date createdOn() {
+		return creationTime;
+	}
+	
+	/**
+	 * Returns the date this {@link Attachment} was last modified.
+	 * @return The {@link Date} when this attachment was modified by a user.
+	 */
+	public Date lastChangedOn() {
+		return lastChange;
 	}
 	
 }
