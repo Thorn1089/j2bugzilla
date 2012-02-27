@@ -25,7 +25,7 @@
       <id>tom</id>
       <name>Tom Golden</name>
       <email>TomRK1089@gmail.com</email>
-      <url>http://atomiccomics.net</url>
+      <url>http://j2bugzilla.com</url>
       <roles>
         <role>developer</role>
       </roles>
@@ -70,9 +70,9 @@
   </build>
   
   <scm>
-    <connection>scm:svn:http://j2bugzilla.googlecode.com/svn/trunk/</connection>
-    <developerConnection>scm:svn:https://j2bugzilla.googlecode.com/svn/trunk/</developerConnection>
-    <url>http://j2bugzilla.googlecode.com/svn/trunk/</url>
+    <connection>scm:hg:https://code.google.com/p/j2bugzilla/</connection>
+    <developerConnection>scm:hg:https://code.google.com/p/j2bugzilla/</developerConnection>
+    <url>https://code.google.com/p/j2bugzilla/</url>
   </scm>
   
   <url>http://code.google.com/p/j2bugzilla/</url>
