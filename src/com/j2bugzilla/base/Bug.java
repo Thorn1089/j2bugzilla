@@ -38,13 +38,6 @@ public class Bug {
 	public enum Priority {P1, P2, P3, P4, P5};
 	
 	/**
-	 * Enum describing the legitimate values for a Bug's status.
-	 * @author Tom
-	 *
-	 */
-	public enum Status {NEW, ASSIGNED, RESOLVED};
-	
-	/**
 	 * Constructor for creating a new {@link Bug} to submit to an installation.
 	 * The constructor ensures any required values in {@link #requiredKeys} are set, and throws
 	 * an {@link IllegalStateException} if they are null.
@@ -180,23 +173,19 @@ public class Bug {
 	}
 	
 	/**
-	 * Returns the {@link Status} of this {@link Bug} indicating whether it is open or closed.
-	 * @return the {@link Status} of a {@link Bug}
+	 * Returns the status of this {@link Bug} indicating whether it is open or closed.
+	 * @return A {@code String} representing the status of a {@link Bug}.
 	 */
-	public Status getStatus() {
-		/*
-		 * Bit of a hacky solution, but it avoids switching 
-		 * over the enums to match them to Strings.
-		 */
-		return Status.valueOf(((String)internalState.get("status")).toUpperCase());
+	public String getStatus() {
+		return (String) internalState.get("status");
 	}
 	
 	/**
-	 * Sets the {@link Status} of this {@link Bug} indicating whether it is open or closed.
-	 * @param status The {@code Status} of this bug.
+	 * Sets the status of this {@link Bug} indicating whether it is open or closed.
+	 * @param status A {@code String} representing the status of this bug.
 	 */
-	public void setStatus(Status status) {
-		internalState.put("status", status.toString());
+	public void setStatus(String status) {
+		internalState.put("status", status);
 	}
 	
 	/**
