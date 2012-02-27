@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+  
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.j2bugzilla</groupId>
+  <artifactId>j2bugzilla</artifactId>
+  <version>1.1-SNAPSHOT</version>
+  <name>J2Bugzilla</name>
+  <description>A library for accessing Bugzilla installations in Java</description>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.xmlrpc</groupId>
+      <artifactId>xmlrpc-client</artifactId>
+      <version>3.1.3</version>
+    </dependency>
+  </dependencies>
+  
+  <developers>
+    <developer>
+      <id>tom</id>
+      <name>Tom Golden</name>
+      <email>TomRK1089@gmail.com</email>
+      <url>http://j2bugzilla.com</url>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>-5</timezone>
+    </developer>
+  </developers>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <build>
+  	<sourceDirectory>src</sourceDirectory>
+  	<plugins>
+  	  <plugin>
+  	    <groupId>org.apache.maven.plugins</groupId>
+  	    <artifactId>maven-compiler-plugin</artifactId>
+  	    <configuration>
+  	      <source>1.6</source>
+  	      <target>1.6</target>
+  	      <encoding>${project.build.sourceEncoding}</encoding>
+  	      <showDeprecation>true</showDeprecation>
+  	      <showWarnings>true</showWarnings>
+  	    </configuration>
+  	  </plugin>
+  	  
+  	  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
+  	</plugins>
+  </build>
+  
+  <scm>
+    <connection>scm:hg:https://code.google.com/p/j2bugzilla</connection>
+    <developerConnection>scm:hg:https://code.google.com/p/j2bugzilla</developerConnection>
+    <url>http://code.google.com/p/j2bugzilla</url>
+  </scm>
+  
+  <url>http://code.google.com/p/j2bugzilla/</url>
+</project>
