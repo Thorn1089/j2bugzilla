@@ -1,8 +1,6 @@
 package com.j2bugzilla.base;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * The {@code AttachmentFactory} is responsible for creating new {@link Attachment} objects based off of
