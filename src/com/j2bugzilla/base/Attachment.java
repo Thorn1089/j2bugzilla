@@ -4,13 +4,14 @@ import java.util.Date;
 
 /**
  * The {@code Attachment} class defines certain shared properties of files attached to a bug report.
- * Subclasses of {@code Attachment} may provide additional fields and methods to display and manipulate
- * the specific attachment data.
+ * This class may be extended by clients who wish to automatically translate certain types of file
+ * formats. For example, clients may create a {@code ImageAttachment} class which provides a method
+ * {@code getImage()} that returns a {@code java.awt.Image} from the Base64 data.
  * 
  * @author Tom
  *
  */
-public abstract class Attachment {
+public class Attachment {
 	
 	private final String encodedData;
 	
