@@ -117,6 +117,7 @@ public class AttachmentFactory {
 		} else {
 			throw new IllegalArgumentException("Unsupported MIME type: " + mime);
 		}
+		a.setMIMEType(mime);
 		a.setSummary(summary);
 		a.setCreator(creator);
 		a.setCreationDate(created);

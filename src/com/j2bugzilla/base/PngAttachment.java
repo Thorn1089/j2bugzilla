@@ -19,12 +19,10 @@ public class PngAttachment extends Attachment {
 
 	PngAttachment(String data, String name) {
 		super(data, name);
-		this.setMIMEType("image/png");
 	}
 	
 	PngAttachment(String data, String name, int id, int bugId) {
 		super(data, name, id, bugId);
-		this.setMIMEType("image/png");
 	}
 	
 	public Image getImage() throws IOException {
