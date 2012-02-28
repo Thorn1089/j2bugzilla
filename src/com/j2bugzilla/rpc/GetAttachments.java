@@ -25,14 +25,26 @@ public class GetAttachments implements BugzillaMethod {
 	private Map<Object, Object> hash = new HashMap<Object, Object>();
 	private Map<Object, Object> params = new HashMap<Object, Object>();
 	
+	/**
+	 * Retrieves the {@link Attachment Attachments} for the specified {@link Bug}.
+	 * @param bug A {@code Bug} to retrieve attachments for.
+	 */
 	public GetAttachments(Bug bug) {
 		params.put("ids", bug.getID());
 	}
 	
+	/**
+	 * Retrieves the {@link Attachment Attachments} for the {@link Bug} denoted by the supplied ID.
+	 * @param id A unique integer ID pointing to a {@code Bug} in the Bugzilla installation.
+	 */
 	public GetAttachments(int id) {
 		params.put("ids", id);
 	}
 	
+	/**
+	 * Returns the {@code List} of {@link Attachment Attachments} belonging to the provided {@link Bug}.
+	 * @return A {@code List} of {@code Attachment} objects.
+	 */
 	public List<Attachment> getAttachments() {
 		List<Attachment> attachments = new ArrayList<Attachment>();
 		
