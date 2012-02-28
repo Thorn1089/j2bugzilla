@@ -58,6 +58,15 @@ public abstract class Attachment {
 	}
 	
 	/**
+	 * Sets the Internet Media Type or MIME type of the {@link Attachment}.
+	 * @param type A {@code String} representing a valid MIME type.
+	 * @see http://en.wikipedia.org/wiki/Internet_media_type
+	 */
+	protected void setMIMEType(String type) {
+		mime = type;
+	}
+	
+	/**
 	 * Returns the Internet Media Type or MIME type of the {@link Attachment}.
 	 * @return A {@code String} representing a valid MIME type
 	 * @see http://en.wikipedia.org/wiki/Internet_media_type
