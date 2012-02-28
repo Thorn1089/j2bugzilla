@@ -25,6 +25,11 @@ public class PngAttachment extends Attachment {
 		super(data, name, id, bugId);
 	}
 	
+	/**
+	 * Returns the {@link Image} represented by this attachment.
+	 * @return An {@code Image} object represented by the raw data contained in this attachment.
+	 * @throws IOException If the image cannot be decoded from the data.
+	 */
 	public Image getImage() throws IOException {
 		byte[] data = Base64.decode(this.getRawData());
 		return ImageIO.read(new ByteArrayInputStream(data));
