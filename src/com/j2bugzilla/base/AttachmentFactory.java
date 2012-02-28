@@ -14,14 +14,6 @@ import java.util.Set;
  */
 public class AttachmentFactory {
 	
-	private static final Set<String> supportedImages = new HashSet<String>();
-	
-	static {
-		supportedImages.add("images/gif");
-		supportedImages.add("images/png");
-		supportedImages.add("images/jpeg");
-	}
-	
 	private boolean interrupt = false;
 	
 	private String mime;
@@ -166,17 +158,14 @@ public class AttachmentFactory {
 	
 	public Attachment createAttachment() {
 		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
-		//Determine subtype
+		
 		Attachment a;
-		if(isImageType(mime)) {
-			if(id != -1 && bugID != -1) {
-				a = new ImageAttachment(data, name, id, bugID);
-			} else {
-				a = new ImageAttachment(data, name);
-			}
+		if(id != -1 && bugID != -1) {
+			a = new Attachment(data, name, id, bugID);
 		} else {
-			throw new IllegalArgumentException("Unsupported MIME type: " + mime);
+			a = new Attachment(data, name);
 		}
+		
 		a.setMIMEType(mime);
 		a.setSummary(summary);
 		a.setCreator(creator);
@@ -185,10 +174,6 @@ public class AttachmentFactory {
 		
 		interrupt = false;
 		return a;
-	}
-	
-	private boolean isImageType(String mime) {
-		return supportedImages.contains(mime);
 	}
 	
 }
