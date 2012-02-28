@@ -101,6 +101,14 @@ public abstract class Attachment {
 	}
 	
 	/**
+	 * Sets the creator of this {@link Attachment} to the provided email address.
+	 * @param creator The uploader of this attachment.
+	 */
+	protected void setCreator(String creator) {
+		this.creator = creator;
+	}
+	
+	/**
 	 * Returns the unique ID of this attachment, or {@code -1} if the {@link Attachment} does not come
 	 * from a Bugzilla installation.
 	 * @return The integer ID of this file.
@@ -127,11 +135,27 @@ public abstract class Attachment {
 	}
 	
 	/**
+	 * Sets the date this {@link Attachment} was created.
+	 * @param created A {@link Date} representing when this attachment was submitted.
+	 */
+	protected void setCreationDate(Date created) {
+		creationTime = created;
+	}
+	
+	/**
 	 * Returns the date this {@link Attachment} was last modified.
 	 * @return The {@link Date} when this attachment was modified by a user.
 	 */
 	public Date lastChangedOn() {
 		return lastChange;
+	}
+	
+	/**
+	 * Sets the date this {@link Attachment} was modifed on last.
+	 * @param modified A {@link Date} representing when this attachment was last modified.
+	 */
+	protected void setModifiedDate(Date modified) {
+		lastChange = modified;
 	}
 	
 }
