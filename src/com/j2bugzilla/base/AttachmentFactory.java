@@ -1,5 +1,7 @@
 package com.j2bugzilla.base;
 
+import java.util.Date;
+
 /**
  * The {@code AttachmentFactory} is responsible for creating new {@link Attachment} objects based off of
  * data from either a Bugzilla installation or user input. It is responsible for determining the correct
@@ -23,6 +25,12 @@ public class AttachmentFactory {
 	private int bugID = -1;
 
 	private String summary;
+
+	private String creator;
+
+	private Date created;
+
+	private Date modified;
 	
 	public AttachmentFactory setMime(String mime) {
 		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
@@ -60,6 +68,24 @@ public class AttachmentFactory {
 		return this;
 	}
 	
+	public AttachmentFactory setCreator(String creator) {
+		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		this.creator = creator;
+		return this;
+	}
+	
+	public AttachmentFactory setCreationDate(Date created) {
+		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		this.created = created;
+		return this;
+	}
+	
+	public AttachmentFactory setModifiedDate(Date modified) {
+		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		this.modified = modified;
+		return this;
+	}
+	
 	public Attachment createAttachment() {
 		//Determine subtype
 		Attachment a;
@@ -73,6 +99,9 @@ public class AttachmentFactory {
 			throw new IllegalArgumentException("Unsupported MIME type: " + mime);
 		}
 		a.setSummary(summary);
+		a.setCreator(creator);
+		a.setCreationDate(created);
+		a.setModifiedDate(modified);
 		
 		return a;
 	}
