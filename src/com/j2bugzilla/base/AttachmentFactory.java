@@ -9,5 +9,60 @@ package com.j2bugzilla.base;
  *
  */
 public class AttachmentFactory {
+	
+	private boolean interrupt = false;
+	
+	private String mime;
+	
+	private String data;
+	
+	private String name;
+	
+	private int id = -1;
 
+	private int bugID = -1;
+	
+	public AttachmentFactory setMime(String mime) {
+		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		this.mime = mime;
+		return this;
+	}
+	
+	public AttachmentFactory setData(String rawData) {
+		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		this.data = rawData;
+		return this;
+	}
+	
+	public AttachmentFactory setName(String fileName) {
+		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		this.name = fileName;
+		return this;
+	}
+	
+	public AttachmentFactory setID(int id) {
+		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		this.id = id;
+		return this;
+	}
+	
+	public AttachmentFactory setBugID(int bugID) {
+		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		this.bugID = bugID;
+		return this;
+	}
+	
+	public Attachment createAttachment() {
+		//Determine subtype
+		if("image/png".equals(mime)) {
+			if(id != -1 && bugID != -1) {
+				return new PngAttachment(data, name, id, bugID);
+			} else {
+				return new PngAttachment(data, name);
+			}
+		} else {
+			throw new IllegalArgumentException("Unsupported MIME type: " + mime);
+		}
+	}
+	
 }
