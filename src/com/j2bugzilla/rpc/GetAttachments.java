@@ -1,12 +1,14 @@
 package com.j2bugzilla.rpc;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.j2bugzilla.base.Attachment;
+import com.j2bugzilla.base.AttachmentFactory;
 import com.j2bugzilla.base.Bug;
 import com.j2bugzilla.base.BugzillaMethod;
 
@@ -33,6 +35,32 @@ public class GetAttachments implements BugzillaMethod {
 	
 	public List<Attachment> getAttachments() {
 		List<Attachment> attachments = new ArrayList<Attachment>();
+		
+		if(hash.containsKey("bugs")) {
+			AttachmentFactory factory = new AttachmentFactory();
+			
+			@SuppressWarnings("unchecked")
+			Map<Object, Object> attachMap = (Map<Object, Object>)hash.get("bugs");
+			Collection<Object> values = attachMap.values();
+			for(Object obj : values) {
+				Object[] arr = (Object[])obj;
+				for(Object i : arr) {
+					@SuppressWarnings("unchecked")
+					Map<Object, Object> attachment = (Map<Object, Object>)i;
+					
+					Attachment a = factory.newAttachment()
+							.setID((Integer)attachment.get("id"))
+							.setBugID((Integer)attachment.get("bug_id"))
+							.setData((String)attachment.get("data"))
+							.setName((String)attachment.get("file_name"))
+							.setSummary((String)attachment.get("summary"))
+							.setCreator((String)attachment.get("creator"))
+							.setMime((String)attachment.get("content_type"))
+							.createAttachment();
+					attachments.add(a);
+				}
+			}
+		}
 		
 		return attachments;
 	}
