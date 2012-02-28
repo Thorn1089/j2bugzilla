@@ -147,6 +147,7 @@ public class BugzillaConnector {
 		Object[] obj = {method.getParameterMap()};
 		try {
 			Object results = client.execute(method.getMethodName(), obj);
+			if(!(results instanceof Map<?, ?>)) { results = Collections.emptyMap(); }
 			Map<Object, Object> readOnlyResults = Collections.unmodifiableMap((Map<Object, Object>)results);
 			method.setResultMap(readOnlyResults);
 		} catch (XmlRpcException e) {
