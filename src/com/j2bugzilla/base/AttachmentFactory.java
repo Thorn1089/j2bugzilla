@@ -21,6 +21,8 @@ public class AttachmentFactory {
 	private int id = -1;
 
 	private int bugID = -1;
+
+	private String summary;
 	
 	public AttachmentFactory setMime(String mime) {
 		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
@@ -52,17 +54,27 @@ public class AttachmentFactory {
 		return this;
 	}
 	
+	public AttachmentFactory setSummary(String summary) {
+		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		this.summary = summary;
+		return this;
+	}
+	
 	public Attachment createAttachment() {
 		//Determine subtype
+		Attachment a;
 		if("image/png".equals(mime)) {
 			if(id != -1 && bugID != -1) {
-				return new PngAttachment(data, name, id, bugID);
+				a = new PngAttachment(data, name, id, bugID);
 			} else {
-				return new PngAttachment(data, name);
+				a = new PngAttachment(data, name);
 			}
 		} else {
 			throw new IllegalArgumentException("Unsupported MIME type: " + mime);
 		}
+		a.setSummary(summary);
+		
+		return a;
 	}
 	
 }

@@ -85,6 +85,14 @@ public abstract class Attachment {
 	}
 	
 	/**
+	 * Sets the summary of this {@link Attachment} to the provided value.
+	 * @param summary The new summary for this attachment as a {@code String}.
+	 */
+	protected void setSummary(String summary) {
+		this.summary = summary;
+	}
+	
+	/**
 	 * Returns the name of the user who submitted this {@link Attachment}.
 	 * @return The email address of the poster.
 	 */
