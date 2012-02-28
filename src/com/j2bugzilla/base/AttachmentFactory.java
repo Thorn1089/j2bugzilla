@@ -16,7 +16,7 @@ public class AttachmentFactory {
 	
 	private String mime;
 	
-	private String data;
+	private byte[] data;
 	
 	private String name;
 	
@@ -71,7 +71,7 @@ public class AttachmentFactory {
 	 * @param rawData A {@code String} of Base64 data.
 	 * @return A reference to the current {@link AttachmentFactory}.
 	 */
-	public AttachmentFactory setData(String rawData) {
+	public AttachmentFactory setData(byte[] rawData) {
 		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
 		this.data = rawData;
 		return this;

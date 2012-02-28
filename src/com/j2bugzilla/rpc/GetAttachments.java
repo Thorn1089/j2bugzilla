@@ -51,7 +51,7 @@ public class GetAttachments implements BugzillaMethod {
 					Attachment a = factory.newAttachment()
 							.setID((Integer)attachment.get("id"))
 							.setBugID((Integer)attachment.get("bug_id"))
-							.setData((String)attachment.get("data"))
+							.setData((byte[])attachment.get("data"))
 							.setName((String)attachment.get("file_name"))
 							.setSummary((String)attachment.get("summary"))
 							.setCreator((String)attachment.get("creator"))
