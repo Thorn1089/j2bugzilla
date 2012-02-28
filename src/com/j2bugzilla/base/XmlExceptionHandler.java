@@ -37,6 +37,11 @@ public final class XmlExceptionHandler {
 		FAULT_CODES.put(108, "You do not have permission to edit this bug");
 		FAULT_CODES.put(115, "You do not have permission to modify this bug");
 		FAULT_CODES.put(504, "An invalid user was specified");
+		FAULT_CODES.put(600, "The submitted attachment was too large");
+		FAULT_CODES.put(601, "The MIME type specified was invalid");
+		FAULT_CODES.put(603, "You did not specify a file name");
+		FAULT_CODES.put(604, "You did not specify a file summary");
+		FAULT_CODES.put(606, "You did not specify any file data");
 	}
 
 	/**
