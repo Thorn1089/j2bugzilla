@@ -1,6 +1,8 @@
 package com.j2bugzilla.base;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The {@code AttachmentFactory} is responsible for creating new {@link Attachment} objects based off of
@@ -11,6 +13,14 @@ import java.util.Date;
  *
  */
 public class AttachmentFactory {
+	
+	private static final Set<String> supportedImages = new HashSet<String>();
+	
+	static {
+		supportedImages.add("images/gif");
+		supportedImages.add("images/png");
+		supportedImages.add("images/jpeg");
+	}
 	
 	private boolean interrupt = false;
 	
@@ -108,7 +118,7 @@ public class AttachmentFactory {
 		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
 		//Determine subtype
 		Attachment a;
-		if("image/png".equals(mime)) {
+		if(isImageType(mime)) {
 			if(id != -1 && bugID != -1) {
 				a = new ImageAttachment(data, name, id, bugID);
 			} else {
@@ -125,6 +135,10 @@ public class AttachmentFactory {
 		
 		interrupt = false;
 		return a;
+	}
+	
+	private boolean isImageType(String mime) {
+		return supportedImages.contains(mime);
 	}
 	
 }
