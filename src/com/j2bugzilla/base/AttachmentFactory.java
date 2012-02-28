@@ -32,6 +32,24 @@ public class AttachmentFactory {
 
 	private Date modified;
 	
+	public AttachmentFactory newAttachment() {
+		if(interrupt) { throw new IllegalStateException("Already constructing a new attachment"); }
+		interrupt = true;
+		
+		//Reset fields
+		id = -1;
+		bugID = -1;
+		mime = null;
+		data = null;
+		name = null;
+		summary = null;
+		creator = null;
+		created = null;
+		modified = null;
+		
+		return this;
+	}
+	
 	public AttachmentFactory setMime(String mime) {
 		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
 		this.mime = mime;
@@ -87,6 +105,7 @@ public class AttachmentFactory {
 	}
 	
 	public Attachment createAttachment() {
+		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
 		//Determine subtype
 		Attachment a;
 		if("image/png".equals(mime)) {
@@ -103,6 +122,7 @@ public class AttachmentFactory {
 		a.setCreationDate(created);
 		a.setModifiedDate(modified);
 		
+		interrupt = false;
 		return a;
 	}
 	
