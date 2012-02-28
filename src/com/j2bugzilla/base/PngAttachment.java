@@ -7,7 +7,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.apache.ws.commons.util.Base64;
-import org.apache.ws.commons.util.Base64.DecodingException;
 
 /**
  * The {@code PngAttachment} class is a subtype of {@link Attachment} designed to decipher and display
