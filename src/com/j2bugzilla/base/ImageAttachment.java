@@ -9,19 +9,19 @@ import javax.imageio.ImageIO;
 import org.apache.ws.commons.util.Base64;
 
 /**
- * The {@code PngAttachment} class is a subtype of {@link Attachment} designed to decipher and display
+ * The {@code ImageAttachment} class is a subtype of {@link Attachment} designed to decipher and display
  * PNG files which have been attached to Bugzilla.
  * 
  * @author Tom
  *
  */
-public class PngAttachment extends Attachment {
+public class ImageAttachment extends Attachment {
 
-	PngAttachment(String data, String name) {
+	ImageAttachment(String data, String name) {
 		super(data, name);
 	}
 	
-	PngAttachment(String data, String name, int id, int bugId) {
+	ImageAttachment(String data, String name, int id, int bugId) {
 		super(data, name, id, bugId);
 	}
 	

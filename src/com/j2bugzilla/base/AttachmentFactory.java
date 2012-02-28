@@ -110,9 +110,9 @@ public class AttachmentFactory {
 		Attachment a;
 		if("image/png".equals(mime)) {
 			if(id != -1 && bugID != -1) {
-				a = new PngAttachment(data, name, id, bugID);
+				a = new ImageAttachment(data, name, id, bugID);
 			} else {
-				a = new PngAttachment(data, name);
+				a = new ImageAttachment(data, name);
 			}
 		} else {
 			throw new IllegalArgumentException("Unsupported MIME type: " + mime);
