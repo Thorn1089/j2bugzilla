@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Attachment {
 	
-	private final String encodedData;
+	private final byte[] encodedData;
 	
 	private final String name;
 	
@@ -31,22 +31,22 @@ public class Attachment {
 	
 	private Date lastChange;
 	
-	Attachment(String data, String name) {
+	Attachment(byte[] data, String name) {
 		encodedData = data;
 		this.name = name;
 	}
 	
-	Attachment(String data, String name, int id, int bugId) {
+	Attachment(byte[] data, String name, int id, int bugId) {
 		this(data, name);
 		this.id = id;
 		this.bugId = bugId;
 	}
 	
 	/**
-	 * Returns the Base64-encoded content of this file attachment as a {@code String}.
-	 * @return A {@code String} in Base64 format.
+	 * Returns the Base64-encoded content of this file attachment as an array of bytes.
+	 * @return An array of bytes depicting Base64 data.
 	 */
-	public String getRawData() {
+	public byte[] getRawData() {
 		return encodedData;
 	}
 	
