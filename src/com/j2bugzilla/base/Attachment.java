@@ -1,5 +1,6 @@
 package com.j2bugzilla.base;
 
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -32,7 +33,7 @@ public class Attachment {
 	private Date lastChange;
 	
 	Attachment(byte[] data, String name) {
-		encodedData = data;
+		encodedData = Arrays.copyOf(data, data.length);
 		this.name = name;
 	}
 	
