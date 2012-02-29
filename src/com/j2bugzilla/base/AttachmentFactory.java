@@ -1,5 +1,6 @@
 package com.j2bugzilla.base;
 
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -73,7 +74,7 @@ public class AttachmentFactory {
 	 */
 	public AttachmentFactory setData(byte[] rawData) {
 		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
-		this.data = rawData;
+		this.data = Arrays.copyOf(rawData, rawData.length);
 		return this;
 	}
 	
