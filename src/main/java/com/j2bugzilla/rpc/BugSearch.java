@@ -129,6 +129,11 @@ public class BugSearch implements BugzillaMethod {
 		}
 	}
 	
+	/**
+	 * Creates a new {@link BugSearch} object to query the Bugzilla installation based on one or more
+	 * {@link SearchQuery SearchQueries}.
+	 * @param queries One or more {@code SearchQuery} objects to narrow the search by.
+	 */
 	public BugSearch(SearchQuery... queries) {
 		if(queries.length == 0) { throw new IllegalArgumentException("At least one search query is required"); }
 		
