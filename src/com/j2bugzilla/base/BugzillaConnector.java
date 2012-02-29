@@ -119,7 +119,7 @@ public class BugzillaConnector {
          */
         XmlRpcTransportFactory factory = new XmlRpcSunHttpTransportFactory(client) {
         	
-        	XmlRpcTransport transport = new TransportWithCookies(client);
+        	private final XmlRpcTransport transport = new TransportWithCookies(client);
         	
 			public XmlRpcTransport getTransport() {
 				return transport;
