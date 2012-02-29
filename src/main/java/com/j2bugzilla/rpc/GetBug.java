@@ -36,6 +36,11 @@ public class GetBug implements BugzillaMethod {
 		params.put("ids", id);
 	}
 	
+	/**
+	 * Creates a new {@link GetBug} object to retrieve the {@code Bug} specified by the
+	 * unique alias.
+	 * @param alias A {@code String} representing a bug alias in the Bugzilla installation.
+	 */
 	public GetBug(String alias) {
 		params.put("ids", alias);
 	}
