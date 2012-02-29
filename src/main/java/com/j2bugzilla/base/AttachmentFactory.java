@@ -155,6 +155,10 @@ public class AttachmentFactory {
 		return this;
 	}
 	
+	/**
+	 * Creates the new {@link Attachment} object, setting all fields as designated by this factory's methods.
+	 * @return A new {@code Attachment} object.
+	 */
 	public Attachment createAttachment() {
 		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
 		
