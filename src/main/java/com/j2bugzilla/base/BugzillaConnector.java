@@ -170,6 +170,10 @@ public class BugzillaConnector {
 		 */
 		private List<String> cookies = new ArrayList<String>();
 		
+		/**
+		 * Creates a new {@link TransportWithCookies} object.
+		 * @param pClient The {@link XmlRpcClient} that does the heavy lifting.
+		 */
 		public TransportWithCookies(XmlRpcClient pClient) {
 			super(pClient);
 		}
