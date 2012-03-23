@@ -202,7 +202,7 @@ public class BugSearch implements BugzillaMethod {
 	 * @author Tom
 	 *
 	 */
-	public class SearchQuery {
+	public static class SearchQuery {
 		
 		private final SearchLimiter limiter;
 		
