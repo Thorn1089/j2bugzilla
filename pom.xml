@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.j2bugzilla</groupId>
   <artifactId>j2bugzilla</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.1-SNAPSHOT</version>
   <name>J2Bugzilla</name>
   <description>A library for accessing Bugzilla installations in Java</description>
   <dependencies>
