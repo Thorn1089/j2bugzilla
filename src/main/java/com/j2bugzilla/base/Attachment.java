@@ -5,9 +5,8 @@ import java.util.Date;
 
 /**
  * The {@code Attachment} class defines certain shared properties of files attached to a bug report.
- * This class may be extended by clients who wish to automatically translate certain types of file
- * formats. For example, clients may create a {@code ImageAttachment} class which provides a method
- * {@code getImage()} that returns a {@code java.awt.Image} from the Base64 data.
+ * It provides the data from the posted attachment in the Base64 format for clients to transform as
+ * appropriate, based on the MIME type.
  * 
  * @author Tom
  *
