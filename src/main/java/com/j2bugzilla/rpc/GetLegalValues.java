@@ -26,7 +26,7 @@ public class GetLegalValues implements BugzillaMethod {
 	 * @author Tom
 	 *
 	 */
-	public enum Fields { COMPONENT, VERSION, HARDWARE, OP_SYS, PRIORITY, SEVERITY, STATUS, RESOLUTION }
+	public enum Fields { COMPONENT, VERSION, REP_PLATFORM, OP_SYS, PRIORITY, SEVERITY, STATUS, RESOLUTION }
 	
 	private Set<String> legalValues = Collections.emptySet();
 	
