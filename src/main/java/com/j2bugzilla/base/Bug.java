@@ -30,14 +30,6 @@ public class Bug {
 	private Map<String, Object> internalState;
 	
 	/**
-	 * Enum describing the legitimate values for a Bug's priority rank. Lower
-	 * numbers indicate a higher relative importance compared to other bugs.
-	 * @author Tom
-	 *
-	 */
-	public enum Priority {P1, P2, P3, P4, P5};
-	
-	/**
 	 * Constructor for creating a new {@link Bug} to submit to an installation.
 	 * The constructor ensures any required values in {@link #requiredKeys} are set, and throws
 	 * an {@link IllegalStateException} if they are null.
@@ -64,20 +56,12 @@ public class Bug {
 	}
 
 	/**
-	 * Returns how highly this bug is ranked
-	 * @return a {@link Priority} describing the relative importance of this bug
+	 * Returns how highly this bug is ranked. Since this field can be edited between installations, you may wish to
+	 * {@link com.j2bugzilla.rpc.GetLegalValues check its legal values}.
+	 * @return a {@code String} describing the relative importance of this bug
 	 */
-	public Priority getPriority() {
-		String p = (String)internalState.get("priority");
-		int level = Integer.valueOf(p.substring(1,2));
-		switch(level) {
-		case 1:	return Priority.P1; 
-		case 2: return Priority.P2; 
-		case 3: return Priority.P3; 
-		case 4: return Priority.P4; 
-		case 5: return Priority.P5; 
-		default: return Priority.P3;
-		}
+	public String getPriority() {
+		return (String)internalState.get("priority");
 	}
 	
 	/**

@@ -3,8 +3,6 @@ package com.j2bugzilla.base;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.j2bugzilla.base.Bug.Priority;
-
 /**
  * The {@code BugFactory} class allows users of the j2bugzilla API to construct new {@link Bug Bugs}
  * using a fluent interface. It also provides a method for creating a new {@code Bug} based off of
@@ -83,9 +81,9 @@ public class BugFactory {
 	 * @param priority A {@link Priority} describing the relative importance of a bug.
 	 * @return A reference to the original {@code BugFactory}.
 	 */
-	public BugFactory setPriority(Priority priority) {
+	public BugFactory setPriority(String priority) {
 		if(properties == null) { throw new IllegalStateException("Must call newBug() first!"); }
-		properties.put("priority", priority.toString());
+		properties.put("priority", priority);
 		return this;
 	}
 	
