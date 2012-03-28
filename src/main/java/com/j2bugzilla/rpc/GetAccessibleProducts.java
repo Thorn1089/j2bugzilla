@@ -28,7 +28,12 @@ public class GetAccessibleProducts implements BugzillaMethod {
 	
 	@Override
 	public void setResultMap(Map<Object, Object> hash) {
-		ids = (int[]) hash.get("ids");
+		Object[] objs = (Object[]) hash.get("ids");
+		int[] ints = new int[objs.length];
+		for(int i = 0; i < objs.length; i++) {
+			ints[i] = (Integer)objs[i];
+		}
+		ids = ints;
 	}
 
 	@Override
