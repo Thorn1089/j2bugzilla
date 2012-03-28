@@ -34,7 +34,7 @@ public class TestGetAccessibleProducts {
 				GetAccessibleProducts rpcMethod = (GetAccessibleProducts)invocation.getArguments()[0];
 				
 				Map<Object, Object> hash = new HashMap<Object, Object>();
-				int[] ids = new int[] { 1, 2, 3};
+				Object[] ids = new Object[] { 1, 2, 3};
 				hash.put("ids", ids);
 				
 				rpcMethod.setResultMap(hash);
