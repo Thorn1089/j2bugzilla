@@ -6,7 +6,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import com.j2bugzilla.base.Bug;
 import com.j2bugzilla.base.BugzillaMethod;
+import com.j2bugzilla.base.Product;
 
 /**
  * The {@code GetLegalValues} class allows clients to query their installation for information on the allowed values for fields
@@ -16,7 +18,7 @@ import com.j2bugzilla.base.BugzillaMethod;
  *
  */
 public class GetLegalValues implements BugzillaMethod {
-
+	
 	private static final String METHOD_NAME = "Bug.fields";
 	
 	private final Map<Object, Object> params = new HashMap<Object, Object>();
@@ -30,12 +32,24 @@ public class GetLegalValues implements BugzillaMethod {
 	
 	private Set<String> legalValues = Collections.emptySet();
 	
+	private Product product;
+	
 	/**
 	 * Creates a new {@link GetLegalValues} instance on the specified {@link Fields field}.
 	 * @param field A {@link Fields} enum value describing which field's values should be retrieved.
 	 */
 	public GetLegalValues(Fields field) {
 		params.put("names", field.toString());
+	}
+	
+	/**
+	 * Creates a new {@link GetLegalValues} instance which will retrieve the valid values for a per-{@link Product} {@link Fields Field}.
+	 * @param field A {@link Fields} enum value describing which field's values should be retrieved.
+	 * @param product A {@link Product} to limit the returned legal values by.
+	 */
+	public GetLegalValues(Fields field, Product product) {
+		this(field);
+		this.product = product;
 	}
 	
 	/**
@@ -59,7 +73,20 @@ public class GetLegalValues implements BugzillaMethod {
 			@SuppressWarnings("unchecked")//Cast to structure defined by webservice
 			Map<Object, Object> map = (Map<Object, Object>) obj;
 			String name = (String) map.get("name");
-			legalValues.add(name);
+			
+			if(product == null) {
+				legalValues.add(name);
+			} else {
+				//check the 'visibility_values' field
+				Object[] productNames = (Object[]) map.get("visibility_values");
+				for(Object curr : productNames) {
+					if(curr.equals(product.getName())) {
+						legalValues.add(name);
+						break;
+					}
+				}
+			}
+			
 		}
 	}
 
