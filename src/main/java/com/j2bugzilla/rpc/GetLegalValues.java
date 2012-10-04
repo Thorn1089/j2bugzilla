@@ -21,7 +21,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.j2bugzilla.base.Bug;
 import com.j2bugzilla.base.BugzillaMethod;
 import com.j2bugzilla.base.Product;
 
@@ -39,7 +38,7 @@ public class GetLegalValues implements BugzillaMethod {
 	private final Map<Object, Object> params = new HashMap<Object, Object>();
 	
 	/**
-	 * The {@code Fields} enum defines the valid fields within a {@link Bug} which have a limited set of valid values.
+	 * The {@code Fields} enum defines the valid fields within a {@link com.j2bugzilla.base.Bug Bug} which have a limited set of valid values.
 	 * @author Tom
 	 *
 	 */

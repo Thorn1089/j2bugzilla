@@ -27,6 +27,7 @@ import java.util.Map;
  */
 public class BugFactory {
 	
+	private static final String CALL_NEW = "Must call newBug() first!";
 	/**
 	 * Private {@code Map} used to hold 
 	 */
@@ -64,7 +65,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setAlias(String alias) {
-		if(properties == null) { throw new IllegalStateException("Must call newBug() first!"); }
+		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("alias", alias);
 		return this;
 	}
@@ -75,7 +76,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setOperatingSystem(String os) {
-		if(properties == null) { throw new IllegalStateException("Must call newBug() first!"); }
+		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("op_sys", os);
 		return this;
 	}
@@ -86,7 +87,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setPlatform(String platform) {
-		if(properties == null) { throw new IllegalStateException("Must call newBug() first!"); }
+		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("platform", platform);
 		return this;
 	}
@@ -97,7 +98,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setPriority(String priority) {
-		if(properties == null) { throw new IllegalStateException("Must call newBug() first!"); }
+		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("priority", priority);
 		return this;
 	}
@@ -108,7 +109,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setProduct(String product) {
-		if(properties == null) { throw new IllegalStateException("Must call newBug() first!"); }
+		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("product", product);
 		return this;
 	}
@@ -119,7 +120,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setComponent(String component) {
-		if(properties == null) { throw new IllegalStateException("Must call newBug() first!"); }
+		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("component", component);
 		return this;
 	}
@@ -130,7 +131,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setSummary(String summary) {
-		if(properties == null) { throw new IllegalStateException("Must call newBug() first!"); }
+		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("summary", summary);
 		return this;
 	}
@@ -141,7 +142,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setVersion(String version) {
-		if(properties == null) { throw new IllegalStateException("Must call newBug() first!"); }
+		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("version", version);
 		return this;
 	}
@@ -152,7 +153,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setDescription(String description) {
-		if(properties == null) { throw new IllegalStateException("Must call newBug() first!"); }
+		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("description", description);
 		return this;
 	}
@@ -163,7 +164,7 @@ public class BugFactory {
 	 * @return A new {@code Bug} object.
 	 */
 	public Bug createBug() {
-		if(properties == null) { throw new IllegalStateException("Must call newBug() first!"); }
+		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
 		Bug bug = new Bug(properties);
 		properties = null;
 		return bug;

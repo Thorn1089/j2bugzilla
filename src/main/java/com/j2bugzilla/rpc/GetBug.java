@@ -85,7 +85,6 @@ public class GetBug implements BugzillaMethod {
 		Bug result = null;
 		if(hash.containsKey("bugs")) {
 			
-			//Map<String, Object>[] bugList = (Map<String, Object>[])hash.get("bugs");
 			Object[] bugs = (Object[])hash.get("bugs");
 			if(bugs.length == 0) { 
 				return result; //early return if map is empty

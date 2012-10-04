@@ -83,7 +83,6 @@ public class BugComments implements BugzillaMethod {
 	 * @return A List of {@link Comment} objects representing user comments
 	 */
 	public List<Comment> getComments() {
-		//List<String> commentList = new ArrayList<String>();
 		List<Comment> commentList = new ArrayList<Comment>();
 		
 		if(hash.containsKey("bugs")) {
