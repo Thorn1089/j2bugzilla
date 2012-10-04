@@ -29,6 +29,27 @@ import org.apache.xmlrpc.XmlRpcException;
  */
 public final class XmlExceptionHandler {
 	
+	private static final int NO_FILE_DATA = 606;
+	private static final int NO_FILE_SUMMARY = 604;
+	private static final int NO_FILE_NAME = 603;
+	private static final int INVALID_MIME = 601;
+	private static final int ATTACHMENT_TOO_LARGE = 600;
+	private static final int INVALID_USER = 504;
+	private static final int MODIFY_PERMISSION_DENIED = 115;
+	private static final int EDIT_PERMISSION_DENIED = 108;
+	private static final int NO_SUMMARY = 107;
+	private static final int INVALID_PRODUCT = 106;
+	private static final int NO_COMPONENT = 105;
+	private static final int INVALID_FIELD = 104;
+	private static final int INVALID_ALIAS = 103;
+	private static final int VIEW_PERMISSION_DENIED = 102;
+	private static final int NONEXISTENT_BUG = 101;
+	private static final int NUM_NOT_POSITIVE = 55;
+	private static final int NUM_TOO_LARGE = 54;
+	private static final int NAN = 52;
+	private static final int INVALID_COMPONENT = 51;
+	private static final int EMPTY_FIELD = 50;
+
 	/**
 	 * Private constructor to prevent instantiation.
 	 */
@@ -37,26 +58,26 @@ public final class XmlExceptionHandler {
 	private static final Map<Integer, String> FAULT_CODES = new HashMap<Integer, String>();
 	
 	{
-		FAULT_CODES.put(50, "You attempted to set a field as empty which must contain a value");
-		FAULT_CODES.put(51, "The component you specified is not valid for this product");
-		FAULT_CODES.put(52, "You attempted to supply a value which is not a number for a numerical field");
-		FAULT_CODES.put(54, "You supplied a numerical field which is too large");
-		FAULT_CODES.put(55, "You supplied a numerical field which is negative");
-		FAULT_CODES.put(101, "The bug you attempted to retrieve does not exist");
-		FAULT_CODES.put(102, "You do not have permission to view this bug (Are you logged in?)");
-		FAULT_CODES.put(103, "The alias you specified is invalid");
-		FAULT_CODES.put(104, "One of the fields you specified for this bug is invalid");
-		FAULT_CODES.put(105, "No component was specified");
-		FAULT_CODES.put(106, "The specified product is invalid");
-		FAULT_CODES.put(107, "No summary was specified");
-		FAULT_CODES.put(108, "You do not have permission to edit this bug");
-		FAULT_CODES.put(115, "You do not have permission to modify this bug");
-		FAULT_CODES.put(504, "An invalid user was specified");
-		FAULT_CODES.put(600, "The submitted attachment was too large");
-		FAULT_CODES.put(601, "The MIME type specified was invalid");
-		FAULT_CODES.put(603, "You did not specify a file name");
-		FAULT_CODES.put(604, "You did not specify a file summary");
-		FAULT_CODES.put(606, "You did not specify any file data");
+		FAULT_CODES.put(EMPTY_FIELD, "You attempted to set a field as empty which must contain a value");
+		FAULT_CODES.put(INVALID_COMPONENT, "The component you specified is not valid for this product");
+		FAULT_CODES.put(NAN, "You attempted to supply a value which is not a number for a numerical field");
+		FAULT_CODES.put(NUM_TOO_LARGE, "You supplied a numerical field which is too large");
+		FAULT_CODES.put(NUM_NOT_POSITIVE, "You supplied a numerical field which is negative");
+		FAULT_CODES.put(NONEXISTENT_BUG, "The bug you attempted to retrieve does not exist");
+		FAULT_CODES.put(VIEW_PERMISSION_DENIED, "You do not have permission to view this bug (Are you logged in?)");
+		FAULT_CODES.put(INVALID_ALIAS, "The alias you specified is invalid");
+		FAULT_CODES.put(INVALID_FIELD, "One of the fields you specified for this bug is invalid");
+		FAULT_CODES.put(NO_COMPONENT, "No component was specified");
+		FAULT_CODES.put(INVALID_PRODUCT, "The specified product is invalid");
+		FAULT_CODES.put(NO_SUMMARY, "No summary was specified");
+		FAULT_CODES.put(EDIT_PERMISSION_DENIED, "You do not have permission to edit this bug");
+		FAULT_CODES.put(MODIFY_PERMISSION_DENIED, "You do not have permission to modify this bug");
+		FAULT_CODES.put(INVALID_USER, "An invalid user was specified");
+		FAULT_CODES.put(ATTACHMENT_TOO_LARGE, "The submitted attachment was too large");
+		FAULT_CODES.put(INVALID_MIME, "The MIME type specified was invalid");
+		FAULT_CODES.put(NO_FILE_NAME, "You did not specify a file name");
+		FAULT_CODES.put(NO_FILE_SUMMARY, "You did not specify a file summary");
+		FAULT_CODES.put(NO_FILE_DATA, "You did not specify any file data");
 	}
 
 	/**

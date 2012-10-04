@@ -28,6 +28,8 @@ import java.util.Date;
  */
 public class AttachmentFactory {
 	
+	private static final String CALL_NEW = "Need to call newAttachment() first";
+
 	private boolean interrupt = false;
 	
 	private String mime;
@@ -77,7 +79,7 @@ public class AttachmentFactory {
 	 * @return A reference to the current {@link AttachmentFactory}.
 	 */
 	public AttachmentFactory setMime(String mime) {
-		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		if(!interrupt) { throw new IllegalStateException(CALL_NEW); }
 		this.mime = mime;
 		return this;
 	}
@@ -88,7 +90,7 @@ public class AttachmentFactory {
 	 * @return A reference to the current {@link AttachmentFactory}.
 	 */
 	public AttachmentFactory setData(byte[] rawData) {
-		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		if(!interrupt) { throw new IllegalStateException(CALL_NEW); }
 		this.data = Arrays.copyOf(rawData, rawData.length);
 		return this;
 	}
@@ -99,7 +101,7 @@ public class AttachmentFactory {
 	 * @return A reference to the current {@link AttachmentFactory}.
 	 */
 	public AttachmentFactory setName(String fileName) {
-		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		if(!interrupt) { throw new IllegalStateException(CALL_NEW); }
 		this.name = fileName;
 		return this;
 	}
@@ -110,7 +112,7 @@ public class AttachmentFactory {
 	 * @return A reference to the current {@link AttachmentFactory}.
 	 */
 	public AttachmentFactory setID(int id) {
-		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		if(!interrupt) { throw new IllegalStateException(CALL_NEW); }
 		this.id = id;
 		return this;
 	}
@@ -121,7 +123,7 @@ public class AttachmentFactory {
 	 * @return A reference to the current {@link AttachmentFactory}.
 	 */
 	public AttachmentFactory setBugID(int bugID) {
-		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		if(!interrupt) { throw new IllegalStateException(CALL_NEW); }
 		this.bugID = bugID;
 		return this;
 	}
@@ -132,7 +134,7 @@ public class AttachmentFactory {
 	 * @return A reference to the current {@link AttachmentFactory}.
 	 */
 	public AttachmentFactory setSummary(String summary) {
-		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		if(!interrupt) { throw new IllegalStateException(CALL_NEW); }
 		this.summary = summary;
 		return this;
 	}
@@ -143,7 +145,7 @@ public class AttachmentFactory {
 	 * @return A reference to the current {@link AttachmentFactory}.
 	 */
 	public AttachmentFactory setCreator(String creator) {
-		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		if(!interrupt) { throw new IllegalStateException(CALL_NEW); }
 		this.creator = creator;
 		return this;
 	}
@@ -154,7 +156,7 @@ public class AttachmentFactory {
 	 * @return A reference to the current {@link AttachmentFactory}.
 	 */
 	public AttachmentFactory setCreationDate(Date created) {
-		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		if(!interrupt) { throw new IllegalStateException(CALL_NEW); }
 		this.created = created;
 		return this;
 	}
@@ -165,7 +167,7 @@ public class AttachmentFactory {
 	 * @return A reference to the current {@link AttachmentFactory}.
 	 */
 	public AttachmentFactory setModifiedDate(Date modified) {
-		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		if(!interrupt) { throw new IllegalStateException(CALL_NEW); }
 		this.modified = modified;
 		return this;
 	}
@@ -175,7 +177,7 @@ public class AttachmentFactory {
 	 * @return A new {@code Attachment} object.
 	 */
 	public Attachment createAttachment() {
-		if(!interrupt) { throw new IllegalStateException("Need to call newAttachment() first"); }
+		if(!interrupt) { throw new IllegalStateException(CALL_NEW); }
 		
 		Attachment a;
 		if(id != -1 && bugID != -1) {
