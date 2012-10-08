@@ -75,5 +75,11 @@ public class TestGetBug {
 		assertEquals("Bug summary is incorrect", "Testing the get method", getBug.getBug().getSummary());
 		assertEquals("Bug version is incorrect", "1.0.1", getBug.getBug().getVersion());
 	}
+	
+	@Test
+	public void testBeforeCall() {
+		GetBug getBug = new GetBug(1);
+		assertNull("Returned bug is not null", getBug.getBug());
+	}
 
 }
