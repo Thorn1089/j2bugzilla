@@ -62,5 +62,11 @@ public class TestCommentBug {
 		
 		assertEquals("Incorrect comment ID", 1, comment.getCommentID());
 	}
+	
+	@Test
+	public void testBeforeCall() {
+		CommentBug comment = new CommentBug(1, "New Comment");
+		assertEquals("Incorrect comment ID", -1, comment.getCommentID());
+	}
 
 }
