@@ -69,5 +69,11 @@ public class TestAddAttachment {
 		
 		assertEquals("Incorrect attachment ID", 1, add.getID());		
 	}
+	
+	@Test
+	public void testBeforeCall() {
+		AddAttachment add = new AddAttachment(attach, 0);
+		assertEquals("Incorrect attachment ID", -1, add.getID());
+	}
 
 }
