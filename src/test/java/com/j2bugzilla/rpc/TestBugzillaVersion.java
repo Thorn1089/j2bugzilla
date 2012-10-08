@@ -62,5 +62,11 @@ public class TestBugzillaVersion {
 		
 		assertEquals("Returned version is incorrect", "3.0.4", version.getVersion());
 	}
+	
+	@Test
+	public void testBeforeCall() {
+		BugzillaVersion version = new BugzillaVersion();
+		assertEquals("Version should be empty", "", version.getVersion());
+	}
 
 }
