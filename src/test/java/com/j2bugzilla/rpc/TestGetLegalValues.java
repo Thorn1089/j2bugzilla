@@ -32,6 +32,7 @@ import org.mockito.stubbing.Answer;
 
 import com.j2bugzilla.base.BugzillaConnector;
 import com.j2bugzilla.base.BugzillaException;
+import com.j2bugzilla.base.Product;
 import com.j2bugzilla.rpc.GetLegalValues.Fields;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -83,6 +84,52 @@ public class TestGetLegalValues {
 		assertTrue("Severity missing", severities.contains("blocker"));
 		assertTrue("Severity missing", severities.contains("major"));
 		assertTrue("Severity missing", severities.contains("minor"));
+	}
+	
+	@Test
+	public void getLegalValuesByProduct() throws BugzillaException {
+		Product product = new Product(1, "FooBar");
+		GetLegalValues getLegalVals = new GetLegalValues(Fields.VERSION, product);
+		
+		doAnswer(new Answer<Void>() {
+			@Override
+			public Void answer(InvocationOnMock invocation) throws Throwable {
+				GetLegalValues rpcMethod = (GetLegalValues)invocation.getArguments()[0];
+				
+				Map<Object, Object> hash = new HashMap<Object, Object>();
+				
+				Object[] arr = new Object[1];
+				Map<Object, Object> valMap = new HashMap<Object, Object>();
+				arr[0] = valMap;
+				
+				
+				Map<String, Object> val1 = new HashMap<String, Object>();
+				val1.put("name", "1.0");
+				val1.put("visibility_values", new Object[]{"FooBar", "FooBaz"});
+				Map<String, Object> val2 = new HashMap<String, Object>();
+				val2.put("name", "1.1");
+				val2.put("visibility_values", new Object[]{"FooBar"});
+				Map<String, Object> val3 = new HashMap<String, Object>();
+				val3.put("name", "2.0");
+				val3.put("visibility_values", new Object[]{"FooBaz"});
+				
+				Object[] values = new Object[] { val1, val2, val3 };
+				valMap.put("values", values);
+								
+				hash.put("fields", arr);
+				
+				rpcMethod.setResultMap(hash);
+				
+				return null;
+			}
+		}).when(conn).executeMethod(getLegalVals);
+		
+		conn.executeMethod(getLegalVals);
+		
+		Set<String> versions = getLegalVals.getLegalValues();
+		assertTrue("Version 1.0 missing", versions.contains("1.0"));
+		assertTrue("Version 1.1 missing", versions.contains("1.1"));
+		assertFalse("Version 2.0 present", versions.contains("2.0"));
 	}
 
 }
