@@ -63,7 +63,7 @@ public class AttachmentFactory {
 		id = -1;
 		bugID = -1;
 		mime = null;
-		data = null;
+		data = new byte[0];
 		name = null;
 		summary = null;
 		creator = null;
