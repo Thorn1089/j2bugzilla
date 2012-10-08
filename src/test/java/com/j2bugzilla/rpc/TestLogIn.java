@@ -63,4 +63,10 @@ public class TestLogIn extends TestCase {
 		assertEquals("Incorrect user ID returned", 1, logIn.getUserID());
 	}
 	
+	@Test
+	public void testBeforeCall() {
+		LogIn logIn = new LogIn("test@test.org", "password");
+		assertEquals("User ID should be -1", -1, logIn.getUserID());
+	}
+	
 }
