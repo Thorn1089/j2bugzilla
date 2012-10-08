@@ -71,5 +71,17 @@ public class TestReportBug {
 		
 		assertEquals("Bug ID is incorrect", 1, report.getID());
 	}
+	
+	@Test
+	public void testBeforeCall() {
+		Bug bug = new BugFactory().newBug()
+				.setComponent("Test")
+				.setProduct("Test")
+				.setSummary("Testing report")
+				.setVersion("1.0.6")
+				.createBug();
+		ReportBug report = new ReportBug(bug);
+		assertEquals("Bug report ID should be -1", -1, report.getID());
+	}
 
 }
