@@ -16,12 +16,17 @@
 package com.j2bugzilla.base;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * The {@code BugFactory} class allows users of the j2bugzilla API to construct new {@link Bug Bugs}
  * using a fluent interface. It also provides a method for creating a new {@code Bug} based off of
  * a {@code Map} provided from an XML-RPC method.
+ * 
+ * The {@code BugFactory} is not thread-safe. Callers must provide their own synchronization when
+ * using a {@code BugFactory} shared across multiple threads of execution.
  * @author Tom
  *
  */
@@ -32,6 +37,10 @@ public class BugFactory {
 	 * Private {@code Map} used to hold 
 	 */
 	private Map<String, Object> properties;
+	
+	private Set<Flag> flags;
+	
+	private boolean locked = false;
 
 	/**
 	 * Creates a new {@link Bug} based off of the provided {@code Map} of properties.
@@ -39,11 +48,10 @@ public class BugFactory {
 	 * @return A new {@code Bug} object.
 	 */
 	public Bug createBug(Map<String, Object> properties) {
-		Map<String, Object> copy = new HashMap<String, Object>();
-		for(String key : properties.keySet()) {
-			copy.put(key, properties.get(key));
-		}
-		return new Bug(copy);
+		Map<String, Object> copyProps = new HashMap<String, Object>();
+		copyProps.putAll(properties);
+		
+		return new Bug(copyProps);
 	}
 	
 	/**
@@ -53,8 +61,10 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory newBug() {
-		if(properties != null) { throw new IllegalStateException("Already creating a new Bug!"); }
+		if(locked) { throw new IllegalStateException("Already creating a new Bug!"); }
+		locked = true;
 		properties = new HashMap<String, Object>();
+		flags = new HashSet<Flag>();
 		return this;
 	}
 	
@@ -65,7 +75,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setAlias(String alias) {
-		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
+		if(!locked) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("alias", alias);
 		return this;
 	}
@@ -76,7 +86,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setOperatingSystem(String os) {
-		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
+		if(!locked) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("op_sys", os);
 		return this;
 	}
@@ -87,7 +97,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setPlatform(String platform) {
-		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
+		if(!locked) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("platform", platform);
 		return this;
 	}
@@ -98,7 +108,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setPriority(String priority) {
-		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
+		if(!locked) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("priority", priority);
 		return this;
 	}
@@ -109,7 +119,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setProduct(String product) {
-		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
+		if(!locked) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("product", product);
 		return this;
 	}
@@ -120,7 +130,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setComponent(String component) {
-		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
+		if(!locked) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("component", component);
 		return this;
 	}
@@ -131,7 +141,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setSummary(String summary) {
-		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
+		if(!locked) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("summary", summary);
 		return this;
 	}
@@ -142,7 +152,7 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setVersion(String version) {
-		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
+		if(!locked) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("version", version);
 		return this;
 	}
@@ -153,8 +163,19 @@ public class BugFactory {
 	 * @return A reference to the original {@code BugFactory}.
 	 */
 	public BugFactory setDescription(String description) {
-		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
+		if(!locked) { throw new IllegalStateException(CALL_NEW); }
 		properties.put("description", description);
+		return this;
+	}
+	
+	/**
+	 * Adds a custom {@link Flag} to the {@link Bug} under construction.
+	 * @param flag A {@code Flag} describing bug metadata.
+	 * @return A reference to the original {@code BugFactory}.
+	 */
+	public BugFactory addFlag(Flag flag) {
+		if(!locked) { throw new IllegalStateException(CALL_NEW); }
+		flags.add(flag);
 		return this;
 	}
 	
@@ -164,10 +185,12 @@ public class BugFactory {
 	 * @return A new {@code Bug} object.
 	 */
 	public Bug createBug() {
-		if(properties == null) { throw new IllegalStateException(CALL_NEW); }
-		Bug bug = new Bug(properties);
-		properties = null;
-		return bug;
+		if(!locked) { throw new IllegalStateException(CALL_NEW); }
+		locked = false;
+		@SuppressWarnings("unchecked")
+		HashMap<String, Object>[] flagArray = flags.toArray(new HashMap[0]);
+		properties.put("flags", flagArray);
+		return new Bug(properties);
 	}
 	
 }
