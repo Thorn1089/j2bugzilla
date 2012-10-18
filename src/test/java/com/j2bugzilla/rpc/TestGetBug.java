@@ -57,6 +57,22 @@ public class TestGetBug {
 				bug.put("summary", "Testing the get method");
 				bug.put("version", "1.0.1");
 				
+				//Add some flags to test those code paths as well
+				@SuppressWarnings("unchecked")
+				Map<String, Object>[] flags = new HashMap[3];
+				
+				flags[0] = new HashMap<String, Object>();
+				flags[1] = new HashMap<String, Object>();
+				flags[2] = new HashMap<String, Object>();
+				
+				flags[0].put("name", "tested");
+				flags[0].put("status", "?");
+				flags[1].put("name", "reproduced");
+				flags[1].put("status", "+");
+				flags[2].put("name", "ui");
+				flags[2].put("status", "-");
+				bug.put("flags", flags);
+				
 				bugArray[0] = bug;
 				
 				hash.put("bugs", bugArray);
@@ -74,6 +90,7 @@ public class TestGetBug {
 		assertEquals("Bug component is incorrect", "Test", getBug.getBug().getComponent());
 		assertEquals("Bug summary is incorrect", "Testing the get method", getBug.getBug().getSummary());
 		assertEquals("Bug version is incorrect", "1.0.1", getBug.getBug().getVersion());
+		assertEquals("Bug does not contain flags", 3, getBug.getBug().getFlags().size());
 	}
 	
 	@Test
