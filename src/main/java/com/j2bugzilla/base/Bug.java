@@ -244,7 +244,7 @@ public class Bug {
 				s = Status.UNKNOWN;
 			} else if(status.equals("+")) {
 				s = Status.POSITIVE;
-			} else if(status.equals("=")) {
+			} else if(status.equals("-")) {
 				s = Status.NEGATIVE;
 			} else {
 				throw new IllegalStateException("Unknown flag state");
