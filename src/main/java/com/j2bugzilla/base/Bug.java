@@ -17,7 +17,12 @@ package com.j2bugzilla.base;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+
+import com.j2bugzilla.base.Flag.Status;
+import com.j2bugzilla.rpc.ReportBug;
 
 
 /**
@@ -219,6 +224,34 @@ public class Bug {
 	 */
 	public void setPlatform(String platform) {
 		internalState.put("platform", platform);
+	}
+	
+	/**
+	 * Returns the {@code Set} of all {@link Flag Flags} recorded for this {@link Bug}.
+	 * @return A collection of {@code Flags} recorded by the Bugzilla installation against this {@code Bug}.
+	 */
+	public Set<Flag> getFlags() {
+		@SuppressWarnings("unchecked")
+		Map<String, Object>[] flagData = (HashMap<String, Object>[])internalState.get("flags");
+		Set<Flag> flags = new HashSet<Flag>();
+		for(Map<String, Object> flag : flagData) {
+			String name = (String)flag.get("name");
+			String status = (String)flag.get("status");
+			Status s;
+			if(status.equals(" ")) {
+				s = Status.UNSET;
+			} else if(status.equals("?")) {
+				s = Status.UNKNOWN;
+			} else if(status.equals("+")) {
+				s = Status.POSITIVE;
+			} else if(status.equals("=")) {
+				s = Status.NEGATIVE;
+			} else {
+				throw new IllegalStateException("Unknown flag state");
+			}
+			flags.add(new Flag(name, s));
+		}
+		return Collections.unmodifiableSet(flags);
 	}
 	
 	/**
