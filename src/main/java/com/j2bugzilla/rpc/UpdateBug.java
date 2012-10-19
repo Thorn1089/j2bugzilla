@@ -66,24 +66,7 @@ public class UpdateBug implements BugzillaMethod {
 	 */
 	@Override
 	public Map<Object, Object> getParameterMap() {
-		Map<Object, Object> params = new HashMap<Object, Object>();
-		
-		Map<Object, Object> internals = bug.getParameterMap();
-		
-		params.put("ids", bug.getID());
-		
-		params.put("alias", internals.get("alias"));
-		params.put("assigned_to", internals.get("assigned_to"));
-		params.put("component", internals.get("component"));
-		params.put("op_sys", internals.get("op_sys"));
-		params.put("platform", internals.get("platform"));
-		params.put("priority", internals.get("priority"));
-		params.put("product", internals.get("product"));
-		params.put("status", internals.get("status"));
-		params.put("summary", internals.get("summary"));
-		params.put("version", internals.get("version"));
-		
-		return Collections.unmodifiableMap(params);
+		return Collections.unmodifiableMap(bug.getParameterMap());
 	}
 
 	/**
