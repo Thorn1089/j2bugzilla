@@ -231,10 +231,11 @@ public class Bug {
 	 * @return A collection of {@code Flags} recorded by the Bugzilla installation against this {@code Bug}.
 	 */
 	public Set<Flag> getFlags() {
-		@SuppressWarnings("unchecked")
-		Map<String, Object>[] flagData = (HashMap<String, Object>[])internalState.get("flags");
+		Object[] flagObjs = (Object[])internalState.get("flags");
 		Set<Flag> flags = new HashSet<Flag>();
-		for(Map<String, Object> flag : flagData) {
+		for(Object obj : flagObjs) {
+			@SuppressWarnings("unchecked")
+			Map<String, Object> flag = (Map<String, Object>)obj;
 			String name = (String)flag.get("name");
 			String status = (String)flag.get("status");
 			Status s;
