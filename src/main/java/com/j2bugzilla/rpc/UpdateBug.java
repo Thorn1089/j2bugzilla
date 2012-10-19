@@ -16,6 +16,7 @@
 package com.j2bugzilla.rpc;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.j2bugzilla.base.Bug;
@@ -65,7 +66,12 @@ public class UpdateBug implements BugzillaMethod {
 	 */
 	@Override
 	public Map<Object, Object> getParameterMap() {
-		return Collections.unmodifiableMap(bug.getParameterMap());
+		Map<Object, Object> params = new HashMap<Object, Object>();
+		
+		params.put("ids", bug.getID());
+		params.putAll(bug.getParameterMap());
+		
+		return Collections.unmodifiableMap(params);
 	}
 
 	/**
