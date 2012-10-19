@@ -16,7 +16,6 @@
 package com.j2bugzilla.rpc;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.j2bugzilla.base.Bug;
