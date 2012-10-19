@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.j2bugzilla.base.Flag.Status;
-import com.j2bugzilla.rpc.ReportBug;
 
 
 /**
