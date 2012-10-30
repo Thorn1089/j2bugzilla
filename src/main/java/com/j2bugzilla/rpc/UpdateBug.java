@@ -69,11 +69,26 @@ public class UpdateBug implements BugzillaMethod {
 		Map<Object, Object> params = new HashMap<Object, Object>();
 		
 		params.put("ids", bug.getID());
-		params.putAll(bug.getParameterMap());
+		
+		copyNotNull(params, "alias", bug.getAlias());
+		copyNotNull(params, "summary", bug.getSummary());
+		copyNotNull(params, "priority", bug.getPriority());
+		copyNotNull(params, "product", bug.getProduct());
+		copyNotNull(params, "component", bug.getComponent());
+		copyNotNull(params, "version", bug.getVersion());
+		copyNotNull(params, "status", bug.getStatus());
+		copyNotNull(params, "op_sys", bug.getOperatingSystem());
+		copyNotNull(params, "platform", bug.getPlatform());
 		
 		return Collections.unmodifiableMap(params);
 	}
-
+	
+	private void copyNotNull(Map<Object, Object> map, String key, Object value) {
+		if(value != null) {
+			map.put(key, value);
+		}
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
