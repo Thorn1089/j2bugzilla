@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.j2bugzilla.base.Flag.Status;
+import com.j2bugzilla.rpc.GetLegalValues;
 
 
 /**
@@ -151,7 +152,8 @@ public class Bug {
 	
 	/**
 	 * Sets the component this {@link Bug} is associated with. Note that a nonexistent component name will result
-	 * in Bugzilla returning an error upon submission.
+	 * in Bugzilla returning an error upon submission. Since this field can be edited between installations, you may wish to
+	 * {@link com.j2bugzilla.rpc.GetLegalValues check its legal values}.
 	 * @param component A {@code String} representing the component name.
 	 */
 	public void setComponent(String component) {
@@ -168,7 +170,8 @@ public class Bug {
 	
 	/**
 	 * Sets the version number of the product this {@link Bug} is associated with. Note that a nonexistent version
-	 * number will result in Bugzilla returning an error on submission.
+	 * number will result in Bugzilla returning an error on submission. Since this field can be edited between installations, you may wish to
+	 * {@link com.j2bugzilla.rpc.GetLegalValues check its legal values}.
 	 * @param version A {@code String} describing the version number of the product affected by this bug.
 	 */
 	public void setVersion(String version) {
@@ -184,15 +187,56 @@ public class Bug {
 	}
 	
 	/**
-	 * Sets the status of this {@link Bug} indicating whether it is open or closed.
+	 * Sets the status of this {@link Bug} indicating whether it is open or closed. Since this field can be edited between installations, you may wish to
+	 * {@link com.j2bugzilla.rpc.GetLegalValues check its legal values}.
+	 * 
+	 * If changing a bug's state from closed to open, the resolution must also be reset. Otherwise, the remote
+	 * Bugzilla installation will throw an error. Clients must manually call {@link #clearResolution()}. Since the status
+	 * and resolution fields are customizable, this library cannot safely determine when to call this method automatically,
+	 * so managing the state of the bug is the responsibility of the caller.
 	 * @param status A {@code String} representing the status of this bug.
+	 * @see {@link #setResolution(String)}
 	 */
 	public void setStatus(String status) {
 		internalState.put("status", status);
 	}
 	
 	/**
-	 * Returns the operating system this bug was discovered to affect.
+	 * Returns the resolution of this {@link Bug} if it is closed, or null if it is still open.
+	 * @return A {@code String} representing the resolution of a {@link Bug}.
+	 * @see {@link GetLegalValues} to retrieve a list of the defined resolutions for a specific installation.
+	 */
+	public String getResolution() {
+		return (String) internalState.get("resolution");
+	}
+	
+	/**
+	 * Sets the resolution of this {@link Bug}. Since this field can be edited between installations, you may wish to
+	 * {@link com.j2bugzilla.rpc.GetLegalValues check its legal values}.
+	 * 
+	 * If the status does not correspond to a closed value, this value is meaningless.
+	 * Bugzilla allows the definition of custom workflows, so maintaining a correct correspondence between resolution and status is the
+	 * responsibility of the caller.
+	 * @param resolution A {@code String} representing the resolution of this bug.
+	 * @see {@link #clearResolution()}
+	 */
+	public void setResolution(String resolution) {
+		internalState.put("resolution", resolution);
+	}
+	
+	/**
+	 * Removes any existing resolution for this {@link Bug}.
+	 * Since a resolution can only be applied to a closed bug, depending on the workflow defined by the particular
+	 * Bugzilla installation, changing a bug's status from closed to open requires the caller also invoke this method.
+	 * Because of this customization capability, it is impossible to safely determine automatically when to clear
+	 * a set resolution.
+	 */
+	public void clearResolution() {
+		internalState.remove("resolution");
+	}
+	
+	/**
+	 * Returns the operating system this bug was discovered to affect. 
 	 * @return A {@code String} representing the name of the affected operating system.
 	 */
 	public String getOperatingSystem() {
@@ -200,8 +244,8 @@ public class Bug {
 	}
 	
 	/**
-	 * Sets the operating system this {@link Bug} was discovered to affect. Note that the default values
-	 * provided by Bugzilla are "All," "Mac OS," "Windows," "Linux," or "Other."
+	 * Sets the operating system this {@link Bug} was discovered to affect. Since this field can be edited between installations, you may wish to
+	 * {@link com.j2bugzilla.rpc.GetLegalValues check its legal values}.
 	 * @param os A {@code String} representing the operating system name.
 	 */
 	public void setOperatingSystem(String os) {
@@ -209,7 +253,8 @@ public class Bug {
 	}
 	
 	/**
-	 * Returns the hardware platform this bug was discovered to affect.
+	 * Returns the hardware platform this bug was discovered to affect. Since this field can be edited between installations, you may wish to
+	 * {@link com.j2bugzilla.rpc.GetLegalValues check its legal values}.
 	 * @return A {@code String} representing the name of the affected platform.
 	 */
 	public String getPlatform() {
@@ -217,8 +262,8 @@ public class Bug {
 	}
 	
 	/**
-	 * Sets the platform affected by this {@link Bug}. Note that the default values provided by Bugzilla are
-	 * "All," "Macintosh," "PC," or "Other."
+	 * Sets the platform affected by this {@link Bug}. Since this field can be edited between installations, you may wish to
+	 * {@link com.j2bugzilla.rpc.GetLegalValues check its legal values}.
 	 * @param platform A {@code String} representing the platform name.
 	 */
 	public void setPlatform(String platform) {
