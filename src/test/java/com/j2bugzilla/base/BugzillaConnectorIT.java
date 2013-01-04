@@ -16,9 +16,9 @@ public class BugzillaConnectorIT {
 		List<Object[]> urls = new ArrayList<Object[]>();
 		
 		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-3.6-branch/"});
-		urls.add(new Object[]{"http://landfill.bugzilla.org/bugzilla-4.0-branch/"});
-		urls.add(new Object[]{"http://landfill.bugzilla.org/bugzilla-4.2-branch/"});
-		urls.add(new Object[]{"http://landfill.bugzilla.org/bugzilla-4.4-branch/"});
+		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-4.0-branch/"});
+		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-4.2-branch/"});
+		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-4.4-branch/"});
 		
 		return urls;
 	}
