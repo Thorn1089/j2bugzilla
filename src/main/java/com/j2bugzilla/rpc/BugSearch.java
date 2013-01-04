@@ -27,6 +27,11 @@ import com.j2bugzilla.base.BugzillaMethod;
 
 /**
  * This class provides convenience methods for searching for {@link Bug Bugs} on your installation.
+ * 
+ * Clients should note that Bugzilla does not seem to respond well when returning large numbers of
+ * search results via the webservice interface (around 2000 in some tests caused it to fail with an HTTP 500 error). 
+ * Try and keep searches as focused as possible for best results.
+ * 
  * @author Tom
  *
  */
