@@ -48,6 +48,12 @@ public class TestBugSearch {
 	}
 	
 	@Test
+	public void testNotExecuted() {
+		BugSearch search = new BugSearch(new SearchQuery(SearchLimiter.SUMMARY, "Test"));
+		assertTrue("No search results should be present", search.getSearchResults().isEmpty());
+	}
+	
+	@Test
 	public void testQuery() throws BugzillaException {
 		SearchQuery query = new SearchQuery(SearchLimiter.OPERATING_SYSTEM, "Windows");
 		BugSearch search = new BugSearch(query);
