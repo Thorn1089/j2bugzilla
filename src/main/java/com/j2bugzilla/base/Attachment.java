@@ -15,13 +15,16 @@
  */
 package com.j2bugzilla.base;
 
-import java.util.Arrays;
 import java.util.Date;
 
 /**
  * The {@code Attachment} class defines certain shared properties of files attached to a bug report.
  * It provides the data from the posted attachment in the Base64 format for clients to transform as
  * appropriate, based on the MIME type.
+ * 
+ * There is one important exception -- Bugzilla 3.6 did not provide the actual binary data for
+ * attachments. If an Attachment is created from a query on this version, only the metadata will be
+ * returned.
  * 
  * @author Tom
  *
@@ -47,7 +50,7 @@ public class Attachment {
 	private Date lastChange;
 	
 	Attachment(byte[] data, String name) {
-		encodedData = Arrays.copyOf(data, data.length);
+		encodedData = data;
 		this.name = name;
 	}
 	
