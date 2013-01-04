@@ -99,8 +99,12 @@ public class GetBug implements BugzillaMethod {
 					//didn't return it in the outer map -- check the 'internals'
 					@SuppressWarnings("unchecked")
 					Map<String, Object> internals = (Map<String, Object>)bugMap.get("internals");
-					String version = (String)internals.get("version");
-					bugMap.put("version", version);
+					Object version = internals.get("version");
+					if(version instanceof Double) {
+						bugMap.put("version", Double.toString((Double) version));
+					} else if(version instanceof String) {
+						bugMap.put("version", (String)version);
+					}
 				}
 				
 				result =  new BugFactory().createBug(bugMap);

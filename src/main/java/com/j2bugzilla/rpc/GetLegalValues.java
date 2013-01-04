@@ -42,7 +42,27 @@ public class GetLegalValues implements BugzillaMethod {
 	 * @author Tom
 	 *
 	 */
-	public enum Fields { COMPONENT, VERSION, REP_PLATFORM, OP_SYS, PRIORITY, SEVERITY, STATUS, RESOLUTION }
+	public enum Fields { 
+		COMPONENT("component"), 
+		VERSION("version"), 
+		REP_PLATFORM("rep_platform"), 
+		OP_SYS("op_sys"), 
+		PRIORITY("priority"), 
+		SEVERITY("bug_severity"), 
+		STATUS("bug_status"), 
+		RESOLUTION("resolution");
+		
+		private String internalName;
+		
+		Fields(String internalName) {
+			this.internalName = internalName;
+		}
+		
+		public String getInternalName() {
+			return internalName;
+		}
+		
+	}
 	
 	private Set<String> legalValues = Collections.emptySet();
 	
@@ -53,7 +73,7 @@ public class GetLegalValues implements BugzillaMethod {
 	 * @param field A {@link Fields} enum value describing which field's values should be retrieved.
 	 */
 	public GetLegalValues(Fields field) {
-		params.put("names", field.toString());
+		params.put("names", field.getInternalName());
 	}
 	
 	/**

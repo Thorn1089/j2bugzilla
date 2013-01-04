@@ -30,6 +30,10 @@ import com.j2bugzilla.base.BugzillaMethod;
 /**
  * The {@code GetAttachments} class allows clients to retrieve {@link Attachment} objects from existing
  * {@link Bug Bugs} within a Bugzilla installation.
+ * 
+ * Note that Bugzilla 3.6 did not provide the actual attachment binary data, and thus only metadata
+ * will be returned for this version.
+ * 
  * @author Tom
  *
  */
@@ -75,16 +79,19 @@ public class GetAttachments implements BugzillaMethod {
 					@SuppressWarnings("unchecked")
 					Map<Object, Object> attachment = (Map<Object, Object>)i;
 					
-					Attachment a = factory.newAttachment()
-							.setID((Integer)attachment.get("id"))
-							.setBugID((Integer)attachment.get("bug_id"))
-							.setData((byte[])attachment.get("data"))
-							.setName((String)attachment.get("file_name"))
-							.setSummary((String)attachment.get("summary"))
-							.setCreator((String)attachment.get("creator"))
-							.setMime((String)attachment.get("content_type"))
-							.createAttachment();
-					attachments.add(a);
+					factory.newAttachment()
+						.setID((Integer)attachment.get("id"))
+						.setBugID((Integer)attachment.get("bug_id"))
+						.setName((String)attachment.get("file_name"))
+						.setSummary((String)attachment.get("summary"))
+						.setCreator((String)attachment.get("creator"))
+						.setMime((String)attachment.get("content_type"));
+					
+					if(attachment.containsKey("data")) {
+						//Bugzilla 3.6 did not provide the actual attachment blob
+						factory.setData((byte[])attachment.get("data"));
+					}
+					attachments.add(factory.createAttachment());
 				}
 			}
 		}
