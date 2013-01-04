@@ -54,7 +54,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
-    <sonar.jacoco.itReportPath>${project.basedir}/../target/jacoco-it.exec</sonar.jacoco.itReportPath>
+    <sonar.jacoco.itReportPath>${project.build.directory}/jacoco-it.exec</sonar.jacoco.itReportPath>
   </properties>
   
   <build>
@@ -94,7 +94,7 @@
       	<configuration>
           <argLine>${jacoco.agent.argLine}</argLine>
           <includes>
-            <include>**/*TestIntegration.java</include>
+            <include>**/*IT.java</include>
           </includes>
         </configuration>
         <executions>
@@ -109,7 +109,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.6.0.201210061924</version>
+        <version>0.6.1.201212231917</version>
         <configuration>
           <propertyName>jacoco.agent.argLine</propertyName>
           <destFile>${sonar.jacoco.itReportPath}</destFile>
