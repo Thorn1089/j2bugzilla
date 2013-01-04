@@ -71,5 +71,28 @@ public class TestGetProduct {
 		assertEquals("Product ID is incorrect", 1, product.getProduct().getID());
 		assertEquals("Product name is incorrect", "Test", product.getProduct().getName());
 	}
+	
+	@Test
+	public void testNoProducts() throws BugzillaException {
+		GetProduct product = new GetProduct(-1);
+		
+		assertNull("Product returned before execution should be null", product.getProduct());
+		
+		doAnswer(new Answer<Void>() {
+			@Override
+			public Void answer(InvocationOnMock invocation) throws Throwable {
+				GetProduct rpcMethod = (GetProduct)invocation.getArguments()[0];
+				
+				Map<Object, Object> hash = new HashMap<Object, Object>();
+				hash.put("products", new Object[0]);
+				rpcMethod.setResultMap(hash);
+				return null;
+			}
+		}).when(conn).executeMethod(product);
+		
+		conn.executeMethod(product);
+		
+		assertNull("Product returned should be null", product.getProduct());
+	}
 
 }
