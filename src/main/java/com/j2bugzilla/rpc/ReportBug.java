@@ -46,7 +46,12 @@ public class ReportBug implements BugzillaMethod {
 	 * @param bug A new {@link Bug} that should be tracked
 	 */
 	public ReportBug(Bug bug) {
-		params = bug.getParameterMap();
+		Map<Object, Object> internals = bug.getParameterMap();
+		params = new HashMap<Object, Object>();
+		for(Object key : internals.keySet()) {
+			if(key.equals("flags")) { continue; }//Flags are not supported as a creation parameter
+			params.put(key, internals.get(key));
+		}
 	}
 	
 	/**
