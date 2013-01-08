@@ -58,7 +58,7 @@ public final class XmlExceptionHandler {
 	
 	private static final Map<Integer, String> FAULT_CODES = new HashMap<Integer, String>();
 	
-	{
+	static {
 		FAULT_CODES.put(EMPTY_FIELD, "You attempted to set a field as empty which must contain a value");
 		FAULT_CODES.put(INVALID_COMPONENT, "The component you specified is not valid for this product");
 		FAULT_CODES.put(NAN, "You attempted to supply a value which is not a number for a numerical field");
