@@ -88,7 +88,9 @@ public final class XmlExceptionHandler {
 	public static BugzillaException handleFault(XmlRpcException exception) {
 		
 		String message = FAULT_CODES.get(exception.code);
-		if(message == null) { message = "An unknown error was encountered"; }
+		if(message == null) { 
+			message = "An unknown error was encountered; fault code: " + exception.code; 
+		}
 		return new BugzillaException(message, exception);
 	}
 	
