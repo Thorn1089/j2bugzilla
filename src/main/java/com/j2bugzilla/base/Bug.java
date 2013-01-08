@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.j2bugzilla.base.Flag.Status;
-import com.j2bugzilla.rpc.GetLegalValues;
 
 
 /**
@@ -204,7 +203,7 @@ public class Bug {
 	/**
 	 * Returns the resolution of this {@link Bug} if it is closed, or null if it is still open.
 	 * @return A {@code String} representing the resolution of a {@link Bug}.
-	 * @see {@link GetLegalValues} to retrieve a list of the defined resolutions for a specific installation.
+	 * @see {@link @link com.j2bugzilla.rpc.GetLegalValues GetLegalValues} to retrieve a list of the defined resolutions for a specific installation.
 	 */
 	public String getResolution() {
 		return (String) internalState.get("resolution");
