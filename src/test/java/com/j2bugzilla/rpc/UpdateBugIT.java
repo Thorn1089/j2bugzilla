@@ -20,7 +20,6 @@ public class UpdateBugIT {
 	public static List<Object[]> getUrls() {
 		List<Object[]> urls = new ArrayList<Object[]>();
 		
-		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-3.6-branch/", "ASSIGNED", 1058});
 		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-4.0-branch/", "ASSIGNED", 1058});
 		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-4.2-branch/", "IN_PROGRESS", 1058});
 		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-4.4-branch/", "IN_PROGRESS", 1058});
