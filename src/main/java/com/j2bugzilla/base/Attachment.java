@@ -15,6 +15,7 @@
  */
 package com.j2bugzilla.base;
 
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -65,7 +66,7 @@ public class Attachment {
 	 * @return An array of bytes depicting Base64 data.
 	 */
 	public byte[] getRawData() {
-		return encodedData;
+		return Arrays.copyOf(encodedData, encodedData.length);
 	}
 	
 	/**
@@ -150,7 +151,7 @@ public class Attachment {
 	 * @return The {@link Date} when this attachment was posted.
 	 */
 	public Date createdOn() {
-		return creationTime;
+		return new Date(creationTime.getTime());
 	}
 	
 	/**
@@ -166,7 +167,7 @@ public class Attachment {
 	 * @return The {@link Date} when this attachment was modified by a user.
 	 */
 	public Date lastChangedOn() {
-		return lastChange;
+		return new Date(lastChange.getTime());
 	}
 	
 	/**
