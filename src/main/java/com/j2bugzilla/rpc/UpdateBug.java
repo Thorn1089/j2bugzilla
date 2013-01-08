@@ -25,6 +25,8 @@ import com.j2bugzilla.base.BugzillaMethod;
 /**
  * The {@code UpdateBug} class allows clients to update an existing {@link Bug} on the installation with
  * new values. Currently, this method only allows one bug at a time to be updated.
+ * 
+ * Note that Bugzilla 3.6 does not allow updating bugs via the webservice.
  * @author Tom
  *
  */
