@@ -1,7 +1,5 @@
 package com.j2bugzilla.rpc;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import com.j2bugzilla.base.Bug;
