@@ -157,7 +157,7 @@ public class AttachmentFactory {
 	 */
 	public AttachmentFactory setCreationDate(Date created) {
 		if(!interrupt) { throw new IllegalStateException(CALL_NEW); }
-		this.created = created;
+		this.created = new Date(created.getTime());
 		return this;
 	}
 	
@@ -168,7 +168,7 @@ public class AttachmentFactory {
 	 */
 	public AttachmentFactory setModifiedDate(Date modified) {
 		if(!interrupt) { throw new IllegalStateException(CALL_NEW); }
-		this.modified = modified;
+		this.modified = new Date(modified.getTime());
 		return this;
 	}
 	
