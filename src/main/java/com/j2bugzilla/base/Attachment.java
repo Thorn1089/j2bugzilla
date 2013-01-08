@@ -151,7 +151,7 @@ public class Attachment {
 	 * @return The {@link Date} when this attachment was posted.
 	 */
 	public Date createdOn() {
-		return new Date(creationTime.getTime());
+		return creationTime == null ? null : new Date(creationTime.getTime());
 	}
 	
 	/**
@@ -167,7 +167,7 @@ public class Attachment {
 	 * @return The {@link Date} when this attachment was modified by a user.
 	 */
 	public Date lastChangedOn() {
-		return new Date(lastChange.getTime());
+		return lastChange == null ? null : new Date(lastChange.getTime());
 	}
 	
 	/**
