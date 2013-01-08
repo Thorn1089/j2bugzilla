@@ -35,6 +35,7 @@ public final class XmlExceptionHandler {
 	private static final int INVALID_MIME = 601;
 	private static final int ATTACHMENT_TOO_LARGE = 600;
 	private static final int INVALID_USER = 504;
+	private static final int BAD_CREDENTIALS = 300;
 	private static final int MODIFY_PERMISSION_DENIED = 115;
 	private static final int EDIT_PERMISSION_DENIED = 108;
 	private static final int NO_SUMMARY = 107;
@@ -78,6 +79,7 @@ public final class XmlExceptionHandler {
 		FAULT_CODES.put(NO_FILE_NAME, "You did not specify a file name");
 		FAULT_CODES.put(NO_FILE_SUMMARY, "You did not specify a file summary");
 		FAULT_CODES.put(NO_FILE_DATA, "You did not specify any file data");
+		FAULT_CODES.put(BAD_CREDENTIALS, "Your credentials are not valid; check the account exists");
 	}
 
 	/**
