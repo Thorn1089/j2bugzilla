@@ -19,6 +19,7 @@ package com.j2bugzilla.rpc;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.j2bugzilla.base.Bug;
 import com.j2bugzilla.base.BugzillaMethod;
@@ -48,9 +49,9 @@ public class ReportBug implements BugzillaMethod {
 	public ReportBug(Bug bug) {
 		Map<Object, Object> internals = bug.getParameterMap();
 		params = new HashMap<Object, Object>();
-		for(Object key : internals.keySet()) {
-			if(key.equals("flags")) { continue; }//Flags are not supported as a creation parameter
-			params.put(key, internals.get(key));
+		for(Entry<Object, Object> entry : internals.entrySet()) {
+			if(entry.getKey().equals("flags")) { continue; }//Flags are not supported as a creation parameter
+			params.put(entry.getKey(), entry.getValue());
 		}
 	}
 	
