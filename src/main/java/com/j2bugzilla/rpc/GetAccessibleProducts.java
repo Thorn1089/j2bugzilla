@@ -15,6 +15,7 @@
  */
 package com.j2bugzilla.rpc;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public class GetAccessibleProducts implements BugzillaMethod {
 	 * @return An array of {@code ints}.
 	 */
 	public int[] getProductIDs() {
-		return ids;
+		return Arrays.copyOf(ids, ids.length);
 	}
 	
 	@Override
