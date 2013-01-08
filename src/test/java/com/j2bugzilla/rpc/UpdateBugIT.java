@@ -20,20 +20,23 @@ public class UpdateBugIT {
 	public static List<Object[]> getUrls() {
 		List<Object[]> urls = new ArrayList<Object[]>();
 		
-		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-3.6-branch/", 1058});
-		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-4.0-branch/", 1058});
-		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-4.2-branch/", 1058});
-		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-4.4-branch/", 1058});
+		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-3.6-branch/", "ASSIGNED", 1058});
+		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-4.0-branch/", "ASSIGNED", 1058});
+		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-4.2-branch/", "IN_PROGRESS", 1058});
+		urls.add(new Object[]{"https://landfill.bugzilla.org/bugzilla-4.4-branch/", "IN_PROGRESS", 1058});
 		
 		return urls;
 	}
 	
 	private String url;
 	
+	private String status;
+	
 	private int id;
 	
-	public UpdateBugIT(String url, int id) {
+	public UpdateBugIT(String url, String status, int id) {
 		this.url = url;
+		this.status = status;
 		this.id = id;
 	}
 	
@@ -49,7 +52,7 @@ public class UpdateBugIT {
 		conn.executeMethod(get);
 		
 		Bug bug = get.getBug();
-		bug.setStatus("IN_PROGRESS");
+		bug.setStatus(status);
 		
 		UpdateBug update = new UpdateBug(bug);
 		conn.executeMethod(update);
