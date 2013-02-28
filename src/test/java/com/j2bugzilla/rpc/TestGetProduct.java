@@ -31,6 +31,7 @@ import org.mockito.stubbing.Answer;
 
 import com.j2bugzilla.base.BugzillaConnector;
 import com.j2bugzilla.base.BugzillaException;
+import com.j2bugzilla.base.ProductVersion;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestGetProduct {
@@ -57,8 +58,15 @@ public class TestGetProduct {
 				
 				productArray[0]	 = product;
 				
+				//versions
+				Map<String, Object> version = new HashMap<String, Object>();
+				version.put("id", 17);
+				version.put("name", "1.0");
+
+				Object[] versions = { version};
+				product.put("versions", versions);
+					
 				hash.put("products", productArray);
-				
 				rpcMethod.setResultMap(hash);
 				
 				return null;
@@ -70,6 +78,12 @@ public class TestGetProduct {
 		
 		assertEquals("Product ID is incorrect", 1, product.getProduct().getID());
 		assertEquals("Product name is incorrect", "Test", product.getProduct().getName());
+		assertEquals("Product name is incorrect", 1, product.getProduct().getProductVersions().size());
+		
+		ProductVersion version = product.getProduct().getProductVersions().get(0);
+		assertEquals("Product version ID is incorrect", 17, version.getID());
+		assertEquals("Product version name is incorrect", "1.0", version.getName());
+		
 	}
 	
 	@Test

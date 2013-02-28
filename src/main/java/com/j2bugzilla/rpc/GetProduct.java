@@ -21,6 +21,7 @@ import java.util.Map;
 
 import com.j2bugzilla.base.BugzillaMethod;
 import com.j2bugzilla.base.Product;
+import com.j2bugzilla.base.ProductVersion;
 
 /**
  * The {@code GetProduct} class provides access to information on {@link Product Products} active in a particular
@@ -65,6 +66,17 @@ public class GetProduct implements BugzillaMethod {
 		Product product = new Product((Integer)prodMap.get("id"), (String)prodMap.get("name"));
 		String desc = (String)prodMap.get("description");
 		product.setDescription(desc);
+		
+		if(prodMap.get("versions") != null) {
+			Object[] versions = (Object[]) prodMap.get("versions");
+			for(Object version : versions){
+				@SuppressWarnings("unchecked")//Cast to form specified by webservice
+				Map<Object, Object> versionMap = (Map<Object, Object>) version;
+				ProductVersion productVersion = new ProductVersion((Integer)versionMap.get("id"), 
+						(String)versionMap.get("name"));
+				product.addProductVersion(productVersion);
+			}
+		}
 		
 		return product;
 	}
