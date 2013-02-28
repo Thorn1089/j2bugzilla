@@ -48,7 +48,7 @@ public final class XmlExceptionHandler {
 	private static final int NUM_NOT_POSITIVE = 55;
 	private static final int NUM_TOO_LARGE = 54;
 	private static final int NAN = 52;
-	private static final int INVALID_COMPONENT = 51;
+	private static final int INVALID_FIELD_VALUE = 51;
 	private static final int EMPTY_FIELD = 50;
 
 	/**
@@ -60,7 +60,7 @@ public final class XmlExceptionHandler {
 	
 	static {
 		FAULT_CODES.put(EMPTY_FIELD, "You attempted to set a field as empty which must contain a value");
-		FAULT_CODES.put(INVALID_COMPONENT, "The component you specified is not valid for this product");
+		FAULT_CODES.put(INVALID_FIELD_VALUE, "You attempted to supply a field value that is not valid");
 		FAULT_CODES.put(NAN, "You attempted to supply a value which is not a number for a numerical field");
 		FAULT_CODES.put(NUM_TOO_LARGE, "You supplied a numerical field which is too large");
 		FAULT_CODES.put(NUM_NOT_POSITIVE, "You supplied a numerical field which is negative");
