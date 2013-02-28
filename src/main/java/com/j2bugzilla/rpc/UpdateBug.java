@@ -60,7 +60,7 @@ public class UpdateBug implements BugzillaMethod {
 		Object[] modified = (Object[])hash.get("bugs");
 		//For now, we only modify one bug at a time, thus this array should be a single element
 		assert(modified.length == 1);
-		//There aren't a ton of useful elements returned, so for now just discard the map.
+		//There aren't a ton of useful elements returned, so for now just discard the map.	
 	}
 
 	/**
@@ -79,8 +79,10 @@ public class UpdateBug implements BugzillaMethod {
 		copyNotNull(params, "component", bug.getComponent());
 		copyNotNull(params, "version", bug.getVersion());
 		copyNotNull(params, "status", bug.getStatus());
+		copyNotNull(params, "resolution", bug.getResolution());
 		copyNotNull(params, "op_sys", bug.getOperatingSystem());
 		copyNotNull(params, "platform", bug.getPlatform());
+		copyNotNull(params, "severity", bug.getSeverity());
 		
 		return Collections.unmodifiableMap(params);
 	}

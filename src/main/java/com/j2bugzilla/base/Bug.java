@@ -84,6 +84,15 @@ public class Bug {
 	}
 	
 	/**
+	 * Returns How severe the bug is, or whether it's an enhancement. Since this field can be edited between installations, you may wish to
+	 * {@link com.j2bugzilla.rpc.GetLegalValues check its legal values}.
+	 * @return a {@code String} describing the relative severity of this bug
+	 */
+	public String getSeverity() {
+		return (String)internalState.get("severity");
+	}
+	
+	/**
 	 * Returns the internal Bugzilla ID number for this bug. If it is not in the 
 	 * Bugzilla database, this will return null.
 	 * @return integer ID
