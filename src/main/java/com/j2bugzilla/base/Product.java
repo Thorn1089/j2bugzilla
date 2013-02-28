@@ -15,6 +15,10 @@
  */
 package com.j2bugzilla.base;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * A {@code Product} object represents a product category on the Bugzilla installation. Each product
  * has a unique ID, and each {@link Bug} is associated with exactly one {@code Product}.
@@ -29,6 +33,8 @@ public class Product {
 	private final String name;
 	
 	private String description;
+	
+	private List<ProductVersion> versions = new ArrayList<ProductVersion>();
 	
 	/**
 	 * Creates a new {@link Product} object with the specified unique ID and name.
@@ -80,6 +86,14 @@ public class Product {
 	 */
 	public String getDescription() {
 		return description;
+	}
+	
+	public void addProductVersion(ProductVersion version) {
+		versions.add(version);
+	}
+	
+	public List<ProductVersion> getProductVersions() {
+		return Collections.unmodifiableList(versions);
 	}
 	
 }
