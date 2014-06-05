@@ -55,7 +55,7 @@ public class GetProductIT {
 	}
 	
 	private boolean versionGreaterThanFourTwo(String version) {
-		String[] pieces = version.split(".");
+		String[] pieces = version.split("\\.");
 		int major = Integer.parseInt(pieces[0]);
 		int minor = Integer.parseInt(pieces[1]);
 		return major >= 4 && minor >= 2;

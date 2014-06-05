@@ -16,12 +16,15 @@
 package com.j2bugzilla.base;
 
 
+import com.j2bugzilla.rpc.LogIn;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +56,12 @@ public class BugzillaConnector {
 	 * parameters into properly formatted XML documents, which it then transmits to the host.
 	 */
 	private XmlRpcClient client;	
+
+	/**
+	 * The token represents a login and is used in place of login cookies.
+	 * See {@link com.j2bugzilla.rpc.LogIn#getToken()}
+	 */
+	private String token;
 	
 	/**
 	 * Use this method to designate a host to connect to. You must call this method 
@@ -158,23 +167,38 @@ public class BugzillaConnector {
 		if(client == null) { 
 			throw new IllegalStateException("Cannot execute a method without connecting!");
 		}//We are not currently connected to an installation
+		Map<Object, Object> params = new HashMap<Object, Object>();
+		if (token != null) {
+			params.put("Bugzilla_token", token);
+		}
 		
-		Object[] obj = {method.getParameterMap()};
+		params.putAll(method.getParameterMap());
+		Object[] obj = {params};
 		try {
 			Object results = client.execute(method.getMethodName(), obj);
 			if(!(results instanceof Map<?, ?>)) { results = Collections.emptyMap(); }
 			Map<Object, Object> readOnlyResults = Collections.unmodifiableMap((Map<Object, Object>)results);
 			method.setResultMap(readOnlyResults);
+			if (method instanceof LogIn) {
+				LogIn login = (LogIn)method;
+				setToken(login.getToken());
+			}
 		} catch (XmlRpcException e) {
 			BugzillaException wrapperException = XmlExceptionHandler.handleFault(e);
 			throw wrapperException;
 		}
 	}
+
+	public void setToken(String t) {
+		token = t;
+	}
 	
 	/**
 	 * We need a transport class which will correctly handle cookies set by Bugzilla. This private
 	 * subclass will appropriately set the Cookie HTTP headers.
-	 * 
+	 *
+	 * Cookies are not support by Bugzilla 4.4.3+.
+	 *
 	 * @author Tom
 	 *
 	 */

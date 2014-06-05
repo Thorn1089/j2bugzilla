@@ -72,6 +72,19 @@ public class LogIn implements BugzillaMethod {
 			return -1;
 		}
 	}
+
+	/**
+	 * Returns the token string of the logged in user, or null if the tokens are not supported.
+	 * Login tokens replace login cookies in Bugzilla 4.4.3+
+	 * @return A <code>String</code> representing the token of the logged in user
+	 */
+	public String getToken() {
+		if(hash.containsKey("token")) {
+			return (String)hash.get("token");
+		} else {
+			return null;
+		}
+	}
 	
 	/**
 	 * {@inheritDoc}
