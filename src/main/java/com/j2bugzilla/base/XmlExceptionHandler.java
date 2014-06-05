@@ -91,7 +91,7 @@ public final class XmlExceptionHandler {
 		
 		String message = FAULT_CODES.get(exception.code);
 		if(message == null) { 
-			message = "An unknown error was encountered; fault code: " + exception.code; 
+			message = "An unknown error was encountered; fault code: " + exception.code + " : " + exception.getMessage();
 		}
 		return new BugzillaException(message, exception);
 	}
