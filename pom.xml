@@ -129,7 +129,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.6.1.201212231917</version>
+        <version>0.7.1.201405082137</version>
         <configuration>
           <propertyName>jacoco.agent.argLine</propertyName>
           <destFile>${sonar.jacoco.itReportPath}</destFile>
