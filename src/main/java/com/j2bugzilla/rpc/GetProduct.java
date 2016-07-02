@@ -18,6 +18,8 @@ package com.j2bugzilla.rpc;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.LinkedList;
 
 import com.j2bugzilla.base.BugzillaMethod;
 import com.j2bugzilla.base.Product;
@@ -49,6 +51,23 @@ public class GetProduct implements BugzillaMethod {
 	public GetProduct(int id) {
 		params.put("ids", new Integer[] { id });
 	}
+
+    /**
+     * Creates a new {@link GetProduct}, which can be used to retrieve the collection of {@link Product} associated
+     * with the specified ID numbers.
+     * @param ids A collection of unique integer product IDs.
+     */
+    public GetProduct(int[] ids) {
+        if (ids == null) {
+            throw new IllegalArgumentException("ids array cannot be null.");
+        }
+        final Integer[] idsParam = new Integer[ids.length];
+        int ind = 0;
+        for (int id : ids) {
+            idsParam[ind++] = id;
+        }
+        params.put("ids", idsParam);
+    }
 	
 	/**
 	 * Returns the product found in the Bugzilla installation matching the provided name or ID.
@@ -80,6 +99,62 @@ public class GetProduct implements BugzillaMethod {
 		
 		return product;
 	}
+
+    /**
+     * Returns list of the products found in the Bugzilla installation matching the provided names or IDs.
+     * @return A collection of new {@link Product} objects, or null if there are no results to return.
+     */
+    public List<Product> getProducts() {
+        Object products = hash.get("products");
+        if(products == null) {
+            return null;
+        }
+
+        Object[] arr = (Object[])products;
+        if(arr.length == 0) {
+            return null;
+        }
+
+        final List<Product> result = new LinkedList<Product>();
+        for (final Object curPrcProduct : arr) {
+            @SuppressWarnings("unchecked")
+            final Map<Object, Object> prodMap = (Map<Object, Object>)curPrcProduct;
+            final Product product = makeProduct(prodMap);
+            final String desc = (String)prodMap.get("description");
+            product.setDescription(desc);
+            if (prodMap.get("versions") != null) {
+                fillProductVersions(prodMap, product);
+            }
+            result.add(product);
+        }
+        return result;
+    }
+
+    /**
+     * Make new {@link Product} object base on the ID and description stored in the passed map object.
+     *
+     * @param prodMap {@link Map} object that contains id and name of the product that must be created.
+     * @return new {@link Product} object.
+     */
+    private Product makeProduct(final Map<Object, Object> prodMap) {
+        return new Product((Integer)prodMap.get("id"), (String)prodMap.get("name"));
+    }
+
+    /**
+     * Fill list if the {@link ProductVersion} objects associated with passed {@link Product}.
+     * @param prodMap {@link Map} contained information about versions.
+     * @param product {@link Product} object to fill versions list in.
+     */
+    private void fillProductVersions(final Map<Object, Object> prodMap, final Product product) {
+        final Object[] versions = (Object[]) prodMap.get("versions");
+        for(Object version : versions){
+            @SuppressWarnings("unchecked")//Cast to form specified by webservice
+            final Map<Object, Object> versionMap = (Map<Object, Object>) version;
+            final ProductVersion productVersion = new ProductVersion((Integer)versionMap.get("id"),
+                (String)versionMap.get("name"));
+            product.addProductVersion(productVersion);
+        }
+    }
 	
 	@Override
 	public void setResultMap(Map<Object, Object> hash) {
